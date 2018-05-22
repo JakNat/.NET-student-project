@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NET_student_project.DataAccessLayer;
+using NET_student_project.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,19 @@ namespace NET_student_project.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly GagDbContext _conferencesDb = new GagDbContext();
+        private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         public ActionResult Index()
         {
-            return View();
+           
+
+
+            var categoriesLists = _categoriesRepository.GetAllCategories()
+                .Select(c => new CategoryViewModel()
+                { Name = c.Name
+                })
+                .ToList();
+            return View(categoriesLists);
         }
 
         public ActionResult About()
