@@ -1,4 +1,5 @@
 ﻿using NET_student_project.DataAccessLayer;
+using NET_student_project.Models;
 using NET_student_project.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,15 +15,21 @@ namespace NET_student_project.Controllers
         private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         public ActionResult Index()
         {
+
+
+
+                
+            var Categories = _categoriesRepository.GetAllCategories();
+            var CategoriesViews = _categoriesRepository.GetAllCategories().Select(c => new CategoryViewModel()
+            {
+                Name = c.Name
+            }).ToList();
+            var UserList = _conferencesDb.Users.ToList();
+
            
 
-
-            var categoriesLists = _categoriesRepository.GetAllCategories()
-                .Select(c => new CategoryViewModel()
-                { Name = c.Name
-                })
-                .ToList();
-            return View(categoriesLists);
+           // var userLists = _conferencesDb.Users.ToList();
+             return View(Categories);
         }
 
         public ActionResult About()
