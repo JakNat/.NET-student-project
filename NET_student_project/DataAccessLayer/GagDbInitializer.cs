@@ -38,10 +38,10 @@ namespace NET_student_project.DataAccessLayer
                 new UserModel(){
                     Name = "user8"
                 },
-               
-                
+
+
             };
-           
+
             var Categories = new List<CategoryModel>
             {
                 new CategoryModel()
@@ -51,15 +51,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user1")
+                        User = Users.First(u => u.Name == "user1"),
+                        Points = 3212
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user6")
+                        User = Users.First(u => u.Name == "user6"),
+                        Points = 2464
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user7")
+                        User = Users.First(u => u.Name == "user7"),
+                        Points = 1243
                     }
 
                 }
@@ -70,15 +73,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user1")
+                        User = Users.First(u => u.Name == "user1"),
+                        Points = 453
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user8")
+                        User = Users.First(u => u.Name == "user8"),
+                        Points = 35
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user7")
+                        User = Users.First(u => u.Name == "user7"),
+                        Points = 25
                     }
 
                 }
@@ -90,15 +96,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user3")
+                        User = Users.First(u => u.Name == "user3"),
+                        Points = 65
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user7")
+                        User = Users.First(u => u.Name == "user7"),
+                        Points = 876
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user5")
+                        User = Users.First(u => u.Name == "user5"),
+                        Points = 321
                     }
 
                 }},
@@ -108,15 +117,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user2")
+                        User = Users.First(u => u.Name == "user2"),
+                        Points = 765
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user2")
+                        User = Users.First(u => u.Name == "user2"),
+                        Points = 654
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user3")
+                        User = Users.First(u => u.Name == "user3"),
+                        Points = 456
                     }
 
                 }},
@@ -126,15 +138,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user4")
+                        User = Users.First(u => u.Name == "user4"),
+                        Points = 32
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user4")
+                        User = Users.First(u => u.Name == "user4"),
+                        Points = 22
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user8")
+                        User = Users.First(u => u.Name == "user8"),
+                        Points = 78
                     }
 
                 }},
@@ -144,15 +159,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user2")
+                        User = Users.First(u => u.Name == "user2"),
+                        Points = 321
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user4")
+                        User = Users.First(u => u.Name == "user4"),
+                        Points = 785
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user8")
+                        User = Users.First(u => u.Name == "user8"),
+                        Points = 364
                     }
 
                 }},
@@ -162,15 +180,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user1")
+                        User = Users.First(u => u.Name == "user1"),
+                        Points = 98
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user6")
+                        User = Users.First(u => u.Name == "user6"),
+                        Points = 1035
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user7")
+                        User = Users.First(u => u.Name == "user7"),
+                        Points = 32
                     }
 
                 }},
@@ -180,15 +201,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user1")
+                        User = Users.First(u => u.Name == "user1"),
+                        Points = 42
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user4")
+                        User = Users.First(u => u.Name == "user4"),
+                        Points = 2765
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user3")
+                        User = Users.First(u => u.Name == "user3"),
+                        Points = 968
                     }
 
                 }},
@@ -198,15 +222,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user5")
+                        User = Users.First(u => u.Name == "user5"),
+                        Points = 600
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user6")
+                        User = Users.First(u => u.Name == "user6"),
+                        Points =130
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user7")
+                        User = Users.First(u => u.Name == "user7"),
+                        Points = 87
                     }
 
                 }},
@@ -216,15 +243,18 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user8")
+                        User = Users.First(u => u.Name == "user8"),
+                        Points = 4
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user2")
+                        User = Users.First(u => u.Name == "user2"),
+                        Points = 232
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user4")
+                        User = Users.First(u => u.Name == "user4"),
+                        Points = 521
                     }
 
                 }},
@@ -234,21 +264,25 @@ namespace NET_student_project.DataAccessLayer
                 {
                     new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user4")
+                        User = Users.First(u => u.Name == "user4"),
+                        Points = 123
                     },
                      new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user5")
+                        User = Users.First(u => u.Name == "user5"),
+                        Points = 13
                     },
                       new MemeModel
                     {
-                        User = Users.First(u => u.Name == "user2")
+                        User = Users.First(u => u.Name == "user2"),
+                        Points = 500
                     }
 
                 }}
-               
+
             };
-           // var Memes = new List<MemeModel>
+            var Memes = Categories.Select(c => c.Memes).ToList();
+            // var Memes = new List<MemeModel>
             //{
             /*
 
@@ -272,16 +306,16 @@ namespace NET_student_project.DataAccessLayer
                 new MemeModel(Users.First(p => p.Name == "user7"),Categories.First(p => p.Name == "Pic Of The Day")),
                 new MemeModel(Users.First(p => p.Name == "user8"),Categories.First(p => p.Name == "Gaming")),
              */
-          //   new MemeModel(new UserModel("user","pswd"),new CategoryModel("gaming")),
+            //   new MemeModel(new UserModel("user","pswd"),new CategoryModel("gaming")),
             // new MemeModel(new UserModel("use","psw"),new CategoryModel("funny")
-                
-             
 
-         //   )};
-            
+
+
+            //   )};
+
             context.Users.AddRange(Users);
-        //    context.Memes.AddRange(Memes);
-            context.Categories.AddRange(Categories);    
+            //   context.Memes.AddRange(Memes);
+            context.Categories.AddRange(Categories);
             base.Seed(context);
         }
     }
