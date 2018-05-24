@@ -12,12 +12,10 @@ namespace NET_student_project.DataAccessLayer
         public GagDbContext() : base()
         {
             //Database.SetInitializer<ConferencesCompanyDbContext>(new DropCreateDatabaseIfModelChanges<ConferencesCompanyDbContext>());
-            Database.SetInitializer(new GagDbInitializer());
-        }
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+            Database.SetInitializer<GagDbContext>(new GagDbInitializer());
             
         }
+      
         public DbSet<UserModel> Users { get; set; }
         public DbSet<MemeModel> Memes { get; set; }
         public DbSet<CommentModel> Comments{ get; set; }

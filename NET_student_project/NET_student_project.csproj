@@ -164,6 +164,7 @@
     <Compile Include="DataAccessLayer\CategoriesRepository.cs" />
     <Compile Include="DataAccessLayer\GagDbContext.cs" />
     <Compile Include="DataAccessLayer\GagDbInitializer.cs" />
+    <Compile Include="DataAccessLayer\MemesRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
