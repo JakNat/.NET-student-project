@@ -15,14 +15,9 @@ namespace NET_student_project.Models
         public List<MemeModel> UserMemes { get; set; }
         public List<CommentModel> UserComments { get; set; }
         public DateTime Updated { get; set; }
+        public virtual ICollection<MemeModel> Memes { get; set; }
+        public virtual ICollection<CommentModel> Comments { get; set; }
 
-        public UserModel(string name, string password)
-        {
-            Name = name;
-            Password = password;
-            UserMemes = new List<MemeModel>();
-            UserComments = new List<CommentModel>();
-            Updated = DateTime.Now;
-        }
+      
     }
 }

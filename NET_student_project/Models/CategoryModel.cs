@@ -12,9 +12,8 @@ namespace NET_student_project.Models
         public int CategoryId { get; set; }
         public string Name { get; set; }
 
-        public CategoryModel(string name)
-        {
-            Name = name;
-        }
+        public virtual ICollection<MemeModel> Memes { get; set; }
+
+
     }
 }
