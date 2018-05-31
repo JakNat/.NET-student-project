@@ -51,18 +51,22 @@ namespace NET_student_project.Controllers
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             });
         }
-        public ActionResult About()
+        public ActionResult MemeDetail(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            var meme = _memeRepository.GetMemeById(id);
+            meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
+            return View(meme);
         }
-        
-        public ActionResult Contact()
+        public ActionResult MemesGetByCategory(string id)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            ViewBag.Title = id;
+          
+            return View(new MemesViewModel
+            {
+                Memes = _memeRepository.GetMemeByCategory(id),
+            CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
+            });
         }
+
     }
 }
