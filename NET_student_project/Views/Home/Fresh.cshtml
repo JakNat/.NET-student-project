@@ -1,7 +1,12 @@
-﻿
+﻿@model NET_student_project.ViewModels.MemesViewModel
 @{
     ViewBag.Title = "Fresh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Fresh</h2>
 
+<div class="container">
+    <h2>Fresh</h2>
+    @Html.Partial("MemeDisplay", Model.Memes)
+
+</div>
