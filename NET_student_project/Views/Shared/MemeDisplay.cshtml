@@ -1,0 +1,10 @@
+﻿@model IEnumerable<NET_student_project.ViewModels.MemeViewModel>
+
+@{foreach (var item in Model)
+    {
+        <h3><b>@item.Title</b></h3>
+        <img class="img-responsive"  width="600" src=@item.ImagePath />
+    <footer>@item.Points points @item.Comments.Count comments</footer>
+    <hr/>
+    }
+}
