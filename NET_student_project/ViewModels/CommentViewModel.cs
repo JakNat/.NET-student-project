@@ -5,10 +5,11 @@ using System.Web;
 
 namespace NET_student_project.ViewModels
 {
-    public class CommentViewModel
+    public class CommentViewModel : BaseCategoriesViewModel
     {
-        public DateTime ReleaseTime { get; set; }
+       
         public int Upvotes { get; set; }
         public List<CommentViewModel> ResponseComments { get; set; }
+        public virtual UserViewModel User { get; set; }
     }
 }

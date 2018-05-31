@@ -5,8 +5,9 @@ using System.Web;
 
 namespace NET_student_project.ViewModels
 {
-    public class CategoryViewModel
+    public class CategoryViewModel : BaseCategoriesViewModel
     {
         public string Name { get; set; }
+        public virtual ICollection<MemeViewModel> Memes { get; set; }
     }
 }
