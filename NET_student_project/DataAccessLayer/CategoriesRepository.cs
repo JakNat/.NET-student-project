@@ -14,5 +14,9 @@ namespace NET_student_project.DataAccessLayer
         {
             return _gagDb.Categories.ToList();
         }
+        public List<string> GetAllCategoriesNames()
+        {
+            return _gagDb.Categories.Select(c => c.Name).ToList();
+        }
     }
 }
