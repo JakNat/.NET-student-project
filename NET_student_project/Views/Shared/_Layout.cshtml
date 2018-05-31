@@ -42,10 +42,12 @@
                 <ul style="list-style-type: none">
                     @{foreach (var item in Model.CategoriesNames)
                         {
-                            <li>@Html.ActionLink(item, "Products", new { id = item })</li>
+                            <li>@Html.ActionLink(item, "MemesGetByCategory", new { id = item })</li>
+
+                            
                         }
                     }
-                    </ul>
+                </ul>
                     <ul class="nav"></ul>
             </div>
             <div class="col-sm-6 text-left">

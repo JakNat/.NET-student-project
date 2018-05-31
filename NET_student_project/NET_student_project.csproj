@@ -195,7 +195,13 @@
     <Content Include="Content\Images\meme16.jpg" />
     <Content Include="Content\Images\meme17.jpg" />
     <Content Include="Content\Images\meme18.jpg" />
+    <Content Include="Content\Images\meme19.jpg" />
     <Content Include="Content\Images\meme2.jpg" />
+    <Content Include="Content\Images\meme20.jpg" />
+    <Content Include="Content\Images\meme21.jpg" />
+    <Content Include="Content\Images\meme22.jpg" />
+    <Content Include="Content\Images\meme23.jpg" />
+    <Content Include="Content\Images\meme24.jpg" />
     <Content Include="Content\Images\meme3.jpg" />
     <Content Include="Content\Images\meme4.jpg" />
     <Content Include="Content\Images\meme5.jpg" />
@@ -242,6 +248,8 @@
     <Content Include="Views\Home\Trending.cshtml" />
     <Content Include="Views\Home\Fresh.cshtml" />
     <Content Include="Views\Shared\MemeDisplay.cshtml" />
+    <Content Include="Views\Home\MemeDetail.cshtml" />
+    <Content Include="Views\Home\MemesGetByCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

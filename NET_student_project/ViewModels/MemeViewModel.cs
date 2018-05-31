@@ -8,6 +8,7 @@ namespace NET_student_project.ViewModels
 {
     public class MemeViewModel : BaseCategoriesViewModel
     {
+        public int MemeId { get; set; }
         public string Title { get; set; }
         public string ImagePath { get; set; }
         public int Points { get; set; }

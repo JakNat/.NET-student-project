@@ -16,6 +16,7 @@ namespace NET_student_project.DataAccessLayer
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points > 400).ToList().Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
+                MemeId = m.MemeId,
                 Points = m.Points,
                 Title = m.Title,
                 SComments = m.Comments.Count
@@ -29,6 +30,7 @@ namespace NET_student_project.DataAccessLayer
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 400 && m.Points > 150).Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
+                MemeId = m.MemeId,
                 Points = m.Points,
                 Title = m.Title,
                 SComments = m.Comments.Count
@@ -42,6 +44,7 @@ namespace NET_student_project.DataAccessLayer
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 150).Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
+                MemeId = m.MemeId,
                 Points = m.Points,
                 Title = m.Title,
                 SComments = m.Comments.Count
@@ -49,6 +52,30 @@ namespace NET_student_project.DataAccessLayer
             }
             ).ToList();
 
+        }
+        public MemeViewModel GetMemeById(int id)
+        {
+            var m = _gagDb.Categories.SelectMany(c => c.Memes).First(c => c.MemeId == id);
+            return new MemeViewModel
+            {
+                ImagePath = m.ImagePath,
+                MemeId = m.MemeId,
+                Points = m.Points,
+                Title = m.Title,
+                SComments = m.Comments.Count
+            };
+        }
+        public List<MemeViewModel> GetMemeByCategory(string categoryName)
+        {
+            var a = _gagDb.Categories.Where(c => c.Name == categoryName).SelectMany(c => c.Memes).ToList();
+            return a.Select(m => new MemeViewModel
+            {
+                ImagePath = m.ImagePath,
+                MemeId = m.MemeId,
+                Points = m.Points,
+                Title = m.Title,
+                SComments = m.Comments.Count
+            }).ToList();
         }
     }
 }
