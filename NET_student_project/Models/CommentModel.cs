@@ -11,7 +11,7 @@ namespace NET_student_project.Models
         [Key]
         public int CommentId { get; set; }
 
-        public DateTime ReleaseTime { get; set; }
+   //     public DateTime ReleaseTime { get; set; }
         public int Upvotes { get; set; }
         public List<CommentModel> ResponseComments { get; set; }
         public virtual UserModel User { get; set; }
