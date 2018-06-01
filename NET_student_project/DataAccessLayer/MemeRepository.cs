@@ -74,7 +74,7 @@ namespace NET_student_project.DataAccessLayer
                 MemeId = m.MemeId,
                 Points = m.Points,
                 Title = m.Title,
-                SComments = m.Comments.Count
+                SComments = m.Comments.Count()
             }).ToList();
         }
     }
