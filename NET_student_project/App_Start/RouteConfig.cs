@@ -16,8 +16,9 @@ namespace NET_student_project
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Hot", id = UrlParameter.Optional }
             );
+          
         }
     }
 }
