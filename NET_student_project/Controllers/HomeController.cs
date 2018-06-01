@@ -14,15 +14,7 @@ namespace NET_student_project.Controllers
         private readonly GagDbContext _gagDb = new GagDbContext();
            private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         private readonly MemeRepository _memeRepository = new MemeRepository();
-        public ActionResult Index()
-        {       
-         
-             return View(new MemesViewModel
-             {
-                 Memes = _memeRepository.GetAllHotMemes(),
-                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-             });
-        }
+      
       
         public ActionResult Hot()
         {
