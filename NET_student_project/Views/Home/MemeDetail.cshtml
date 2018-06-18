@@ -1,13 +1,15 @@
 ﻿
-@model  NET_student_project.ViewModels.MemeViewModel
+@model  NET_student_project.ViewModels.DetailedMemeViewModel
 
 
 
-        
-            <h3><b>@Model.Title</b></h3>
-            <img class="img-responsive" width="600" src=@Model.ImagePath />
-        
-        <footer>@Model.Points points @Model.Comments.Count comments</footer>
-        
-        <hr />
-    
+
+<h3><b>@Model.Title</b></h3>
+
+<img class="img-responsive" width="600" src=@Model.ImagePath />
+
+@Html.Partial("CommentDisplay", Model.Comments)
+
+
+<hr />
+

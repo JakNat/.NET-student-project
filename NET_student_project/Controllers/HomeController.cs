@@ -16,38 +16,35 @@ namespace NET_student_project.Controllers
         private readonly MemeRepository _memeRepository = new MemeRepository();
       
       
-        public ActionResult Hot()
+        public ActionResult Hot(string id)
         {
-
+            var a = _memeRepository.GetAllHotMemes();
+            if (id == "Hot")
+            {
+                 a = _memeRepository.GetAllHotMemes();
+            }
+            else if(id == "Trending")
+            {
+                 a = _memeRepository.GetAllTrendingMemes();
+            }
+            else if (id == "Fresh")
+            {
+                a = _memeRepository.GetAllFreshMemes();
+            }
             return View(new MemesViewModel
             {
-                Memes = _memeRepository.GetAllHotMemes(),
+                Memes = a,
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             });
         }
-        public ActionResult Trending()
-        {
-
-            return View(new MemesViewModel
-            {
-                Memes = _memeRepository.GetAllTrendingMemes(),
-                CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-            });
-        }
-        public ActionResult Fresh()
-        {
-
-            return View(new MemesViewModel
-            {
-                Memes = _memeRepository.GetAllFreshMemes(),
-                CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-            });
-        }
+      
         public ActionResult MemeDetail(int id)
         {
             var meme = _memeRepository.GetMemeById(id);
             meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
-            return View(meme);
+            
+            return View(meme
+            );
         }
         public ActionResult MemesGetByCategory(string id)
         {
@@ -59,6 +56,7 @@ namespace NET_student_project.Controllers
             CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             });
         }
+        
 
     }
 }

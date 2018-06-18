@@ -8,9 +8,9 @@
         <h3>  @Html.ActionLink(item.Title, "MemeDetail", new { id = item.MemeId })</h3>
         <img class="img-responsive" width="600" src=@item.ImagePath />
 
-        <footer>@item.Points points @item.Comments.Count comments</footer>
+        <footer>@item.Points points  comments</footer>
         <input type="button" value="Create" onclick="location.href='@Url.Action("Create", "User")'" />
-
+       
         <hr />
     }
 }

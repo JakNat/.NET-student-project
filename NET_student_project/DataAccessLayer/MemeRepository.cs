@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace NET_student_project.DataAccessLayer
 {
@@ -16,10 +17,12 @@ namespace NET_student_project.DataAccessLayer
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points > 400).ToList().Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
-                MemeId = m.MemeId,
+                MemeId = m.Id,
+               
                 Points = m.Points,
                 Title = m.Title,
-                SComments = m.Comments.Count
+                SComments = 0//m.Comments.Count,
+                
                 
             }
             ).ToList();
@@ -30,7 +33,7 @@ namespace NET_student_project.DataAccessLayer
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 400 && m.Points > 150).Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
-                MemeId = m.MemeId,
+                MemeId = m.Id,
                 Points = m.Points,
                 Title = m.Title,
                 SComments = m.Comments.Count
@@ -44,7 +47,7 @@ namespace NET_student_project.DataAccessLayer
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 150).Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
-                MemeId = m.MemeId,
+                MemeId = m.Id,
                 Points = m.Points,
                 Title = m.Title,
                 SComments = m.Comments.Count
@@ -53,16 +56,56 @@ namespace NET_student_project.DataAccessLayer
             ).ToList();
 
         }
-        public MemeViewModel GetMemeById(int id)
+        public DetailedMemeViewModel GetMemeById(int id)
         {
-            var m = _gagDb.Categories.SelectMany(c => c.Memes).First(c => c.MemeId == id);
-            return new MemeViewModel
+
+          
+            var m = _gagDb.Categories.SelectMany(c => c.Memes).First(c => c.Id == id);
+
+            if (m.Comments != null)
+            {
+                return new DetailedMemeViewModel
+                {
+                    ImagePath = m.ImagePath,
+
+                    Points = m.Points,
+                    Title = m.Title,
+                    Comments = m.Comments.Select(c => new CommentViewModel
+                    {
+                        Text = c.Text,
+                        Upvotes = c.Upvotes,
+                        User = new UserViewModel
+                        {
+                            Name = c.User.Name,
+                            ImagePath = c.User.ImagePath
+                        }
+
+                    }).ToList()
+
+                    //   Comments = m.Comments.Select(c => new CommentViewModel
+                    // {
+                    //    Text = c.Text
+                    //}).ToList()
+
+                };
+            }
+            return new DetailedMemeViewModel
             {
                 ImagePath = m.ImagePath,
-                MemeId = m.MemeId,
+
                 Points = m.Points,
                 Title = m.Title,
-                SComments = m.Comments.Count
+                Comments = _gagDb.Comments.Where(c => c.MemeId == id).Select(c => new CommentViewModel
+                {
+                    Text = c.Text,
+                     User = new UserViewModel
+                     {
+                         Name = c.User.Name,
+                         ImagePath = c.User.ImagePath
+                     }
+                }).ToList()
+
+               
             };
         }
         public List<MemeViewModel> GetMemeByCategory(string categoryName)
@@ -71,10 +114,10 @@ namespace NET_student_project.DataAccessLayer
             return a.Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
-                MemeId = m.MemeId,
+                MemeId = m.Id,
                 Points = m.Points,
                 Title = m.Title,
-                SComments = m.Comments.Count()
+              //  SComments = m.Comments.Count()
             }).ToList();
         }
     }

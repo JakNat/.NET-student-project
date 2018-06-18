@@ -32,9 +32,9 @@
             <div class="col-sm-2 sidenav ">
                 <h3>Popular</h3>
                 <ul class="nav">
-                    <li>@Html.ActionLink("Hot", "Hot", "Home")</li>
-                    <li>@Html.ActionLink("Trending", "Trending", "Home")</li>
-                    <li>@Html.ActionLink("Fresh", "Fresh", "Home")</li>
+                    <li>@Html.ActionLink("Hot", "Hot", new { id = "Hot" })</li>
+                    <li>@Html.ActionLink("Trending", "Hot", new { id = "Trending" })</li>
+                    <li>@Html.ActionLink("Fresh", "Hot", new { id = "Fresh" })</li>
 
                 </ul>
 

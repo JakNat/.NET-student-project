@@ -22,23 +22,64 @@ namespace NET_student_project.DataAccessLayer
             {
                 ImagesPathes.Add("/Content/Images/meme" +i +".jpg");
             }
-            List<string> CommentsBase = new List<string>();
-            for (int i = 2; i <= 24; i++)
-            {
-                ImagesPathes.Add("/Content/Images/meme" + i + ".jpg");
-            }
-
+          
+           
 
             int sizeImagePatcges = ImagesPathes.Count;
             var Users = new List<UserModel>();
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 1; i < 30; i++)
             {
                 Users.Add(new UserModel {
                     Name = "user" + i,
-                    UserId = i
+                    ImagePath = "/Content/AvatarImages/RandomAvatar (" + i + ").jpg",
+                    
+
+
+                    Password = "psswd"+i
                 });
             }
+
+            var CommentsBase = new List<CommentModel>
+            {
+                             new CommentModel
+                            {
+                                Text = "bla bla bbla bardzo bardzo fajne",
+                                User =  Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "FFFajne",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "nie fajne",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "xDDDDDD",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "WWow",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "(-.-)))",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "Non retard units anyone?",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },
+
+            };
 
             var Categories = new List<CategoryModel>
             {
@@ -100,54 +141,64 @@ namespace NET_student_project.DataAccessLayer
 
             foreach(var category in Categories)
             {
-                int size = rd.Next(4, 10);
+                int id = 1;
+                int size = rd.Next(6, 14);
                 for (int i = 0; i < size; i++)
                 {
-                    category.Memes.Add(new MemeModel
+                    id++;
+                    category.Memes.Add(new MemeModel    
                     {
                         User = Users[rd.Next(0, Users.Count)],
-                        MemeId = i * 46,
+                    
                         Points = rd.Next(0, 700),
                         Title = "Random title " + category.Name + " [" + i.ToString() + "]",
                         ImagePath = ImagesPathes[rd.Next(0, ImagesPathes.Count)],
-                        Comments = new List<CommentModel>
-                        {
-                            new CommentModel
-                            {
-                                CommentId = rd.Next(0,100000),
-                                Upvotes = rd.Next(0,259),
-                                User = Users[rd.Next(0, Users.Count)],
-                                Text = "Example comment [1] " 
-                            },
-                             new CommentModel
-                            {
-                                CommentId = rd.Next(0,100000),
-                                Upvotes = rd.Next(0,259),
-                                User = Users[rd.Next(0, Users.Count)],
-                                Text = "Example comment [2] "
-                            },
-                              new CommentModel
-                            {
-                                CommentId = rd.Next(0,100000),
-                                Upvotes = rd.Next(0,259),
-                                User = Users[rd.Next(0, Users.Count)],
-                                Text = "Example comment [3] "
-                            },
+                      
+                        Comments = new List<CommentModel> {
                                new CommentModel
                             {
-                                CommentId = rd.Next(0,100000),
-                                Upvotes = rd.Next(0,259),
+                                Text = "bla bla bbla bardzo bardzo fajne",
+                                User =  Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "FFFajne",
                                 User = Users[rd.Next(0, Users.Count)],
-                                Text = "Example comment [4] "
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "nie fajne",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "xDDDDDD",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "WWow",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "(-.-)))",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
+                            },new CommentModel
+                            {
+                                Text = "Non retard units anyone?",
+                                User = Users[rd.Next(0, Users.Count)],
+                                Upvotes = rd.Next(0,376)
                             }
-                        }
+
+                            },
+                        
+                       
                     });
                 }
             }
-            var Memes = Categories.Select(c => c.Memes).ToList();
-            
-            context.Users.AddRange(Users);
-            //   context.Memes.AddRange(Memes);
+          
             context.Categories.AddRange(Categories);
             base.Seed(context);
         }

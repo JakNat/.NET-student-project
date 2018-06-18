@@ -10,7 +10,7 @@ namespace NET_student_project.ViewModels
        
         public int Upvotes { get; set; }
         public string Text { get; set; }
-        public List<CommentViewModel> ResponseComments { get; set; }
-        public virtual UserViewModel User { get; set; }
+        public  UserViewModel User { get; set; }
+       
     }
 }

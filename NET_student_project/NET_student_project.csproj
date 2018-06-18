@@ -160,6 +160,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataAccessLayer\CategoriesRepository.cs" />
     <Compile Include="DataAccessLayer\GagDbContext.cs" />
@@ -176,11 +177,42 @@
     <Compile Include="ViewModels\BaseCategoriesViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\DetailedMemeViewModel.cs" />
     <Compile Include="ViewModels\MemesViewModel.cs" />
     <Compile Include="ViewModels\MemeViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\AvatarImages\RandomAvatar %281%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2810%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2811%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2812%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2813%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2814%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2815%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2816%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2817%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2818%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2819%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %282%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2820%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2821%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2822%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2823%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2824%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2825%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2826%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2827%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2828%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2829%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %283%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %2830%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %284%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %285%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %286%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %287%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %288%29.jpg" />
+    <Content Include="Content\AvatarImages\RandomAvatar %289%29.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -209,6 +241,7 @@
     <Content Include="Content\Images\meme7.jpg" />
     <Content Include="Content\Images\meme8.jpg" />
     <Content Include="Content\Images\meme9.jpg" />
+    <Content Include="Content\Images\RandomAvatar %283%29.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -245,14 +278,14 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Categories.cshtml" />
     <Content Include="Views\Home\Hot.cshtml" />
-    <Content Include="Views\Home\Trending.cshtml" />
-    <Content Include="Views\Home\Fresh.cshtml" />
     <Content Include="Views\Shared\MemeDisplay.cshtml" />
     <Content Include="Views\Home\MemeDetail.cshtml" />
     <Content Include="Views\Home\MemesGetByCategory.cshtml" />
+    <Content Include="Views\Shared\CommentDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Comments\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
