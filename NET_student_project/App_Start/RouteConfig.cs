@@ -18,7 +18,6 @@ namespace NET_student_project
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Hot", id = UrlParameter.Optional }
             );
-          
         }
     }
 }
