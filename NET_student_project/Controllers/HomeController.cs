@@ -11,11 +11,22 @@ namespace NET_student_project.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly GagDbContext _gagDb = new GagDbContext();
+        private readonly IGagDbContext _gagDb;
            private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         private readonly MemeRepository _memeRepository = new MemeRepository();
-      
-      
+
+        public HomeController()
+        {
+            _gagDb = new GagDbContext();
+        }
+
+        public HomeController(IGagDbContext gagDb, CategoriesRepository categoriesRepository, MemeRepository memeRepository)
+        {
+            _gagDb = gagDb;
+            _categoriesRepository = categoriesRepository;
+            _memeRepository = memeRepository;
+        }
+
         public ActionResult Hot(string id)
         {
             var a = _memeRepository.GetAllHotMemes();
@@ -37,9 +48,9 @@ namespace NET_student_project.Controllers
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             });
         }
-      
+
         public ActionResult MemeDetail(int id)
-        {
+        {    
             var meme = _memeRepository.GetMemeById(id);
             meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
             
