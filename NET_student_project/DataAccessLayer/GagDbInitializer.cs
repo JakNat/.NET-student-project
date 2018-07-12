@@ -8,7 +8,7 @@ using NET_student_project.Models;
 
 namespace NET_student_project.DataAccessLayer
 {
-    public class GagDbInitializer : DropCreateDatabaseAlways<GagDbContext>
+    public class GagDbInitializer : DropCreateDatabaseIfModelChanges<GagDbContext>
     {
         protected override void Seed(GagDbContext context)
 

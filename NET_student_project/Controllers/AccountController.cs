@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NET_student_project.DataAccessLayer;
 using NET_student_project.Models;
 
 namespace NET_student_project.Controllers
@@ -17,6 +18,8 @@ namespace NET_student_project.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly GagDbContext gagdb = new GagDbContext();
+        private readonly ApplicationDbContext appdb = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -156,14 +159,20 @@ namespace NET_student_project.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    gagdb.Users.Add(new UserModel
+                    {
+                        Name = model.Email,
+                        Password = model.Password
+
+                    });
+                    gagdb.SaveChanges();
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Hot", "Home");
                 }
                 AddErrors(result);
             }
