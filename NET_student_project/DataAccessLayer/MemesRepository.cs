@@ -9,15 +9,23 @@ namespace NET_student_project.DataAccessLayer
 
     public class MemesRepository
     {
-        private readonly GagDbContext _gagDb = new GagDbContext();
+        private readonly IGagDbContext _gagDb = new GagDbContext();
+        public MemesRepository()
+        {
+            _gagDb = new GagDbContext();
+        }
+        public MemesRepository(IGagDbContext gagDb)
+        {
+            _gagDb = gagDb;
+        }
 
         public List<MemeModel> GetAllHotMemes()
         {
-            return _gagDb.Memes.Where(m => m.Points > 500).ToList();
+            return _gagDb.Memes.Where(m => m.Points > 400).ToList();
         }
         public List<MemeModel> GetAllTrendingMemes()
         {
-            return _gagDb.Memes.Where(m => m.Points <= 500 && m.Points > 100).ToList();
+            return _gagDb.Memes.Where(m => m.Points <= 400 && m.Points > 100).ToList();
         }
         public List<MemeModel> GetAllFreshMemes()
         {

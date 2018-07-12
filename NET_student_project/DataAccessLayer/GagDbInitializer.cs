@@ -198,8 +198,11 @@ namespace NET_student_project.DataAccessLayer
                     });
                 }
             }
-          
-            context.Categories.AddRange(Categories);
+            foreach(var cat in Categories)
+            {
+                context.Categories.Add(cat);
+            }
+       //     context.Categories.Add(Categories);
             base.Seed(context);
         }
     }

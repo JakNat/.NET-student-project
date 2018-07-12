@@ -10,8 +10,16 @@ namespace NET_student_project.DataAccessLayer
 {
     public class MemeRepository
     {
-        private readonly GagDbContext _gagDb = new GagDbContext();
-      
+        private readonly IGagDbContext _gagDb = new GagDbContext();
+        public MemeRepository()
+        {
+            _gagDb = new GagDbContext();
+        }
+        public MemeRepository(IGagDbContext gagDb)
+        {
+            _gagDb = gagDb;
+        }
+
         public List<MemeViewModel> GetAllHotMemes()
         {
             return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points > 400).ToList().Select(m => new MemeViewModel
@@ -30,7 +38,7 @@ namespace NET_student_project.DataAccessLayer
         }
         public List<MemeViewModel> GetAllTrendingMemes()
         {
-            return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 400 && m.Points > 150).Select(m => new MemeViewModel
+            return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 400 && m.Points > 100).Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
                 MemeId = m.Id,
@@ -44,7 +52,7 @@ namespace NET_student_project.DataAccessLayer
         }
         public List<MemeViewModel> GetAllFreshMemes()
         {
-            return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 150).Select(m => new MemeViewModel
+            return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 100).Select(m => new MemeViewModel
             {
                 ImagePath = m.ImagePath,
                 MemeId = m.Id,

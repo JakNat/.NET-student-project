@@ -9,7 +9,16 @@ namespace NET_student_project.DataAccessLayer
 {
     public class CategoriesRepository
     {
-        private readonly GagDbContext _gagDb = new GagDbContext();
+        private readonly IGagDbContext _gagDb = new GagDbContext();
+        public CategoriesRepository()
+        {
+            _gagDb = new GagDbContext();
+        }
+        public CategoriesRepository(IGagDbContext gagDb)
+        {
+            _gagDb = gagDb;
+        }
+
         public List<CategoryModel> GetAllCategories()
         {
             return _gagDb.Categories.ToList();
