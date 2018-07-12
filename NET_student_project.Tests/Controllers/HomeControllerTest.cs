@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NET_student_project;
 using NET_student_project.Controllers;
+using NET_student_project.DataAccessLayer;
+using NET_student_project.Models;
+using NET_student_project.ViewModels;
 
 namespace NET_student_project.Tests.Controllers
 {
@@ -13,42 +16,80 @@ namespace NET_student_project.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void AllHotMemesPointAbove400()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var fakeDb = new FakeGagDbContext();
+          
+            HomeController controller = new HomeController(fakeDb, new CategoriesRepository(fakeDb), new MemeRepository(fakeDb));
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Hot("Hot") as ViewResult;
+
+            var MemeList = (MemesViewModel)result.ViewData.Model;
 
             // Assert
-            Assert.IsNotNull(result);
+            bool a = true;
+            foreach(var meme in MemeList.Memes)
+            {
+                if( meme.Points < 400)
+                {
+                    a = false;
+                    break;
+                }
+            }
+            Assert.IsTrue(a);
         }
 
         [TestMethod]
-        public void About()
+        public void AllTrendigMemesPointBetween100_400()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var fakeDb = new FakeGagDbContext();
+
+            HomeController controller = new HomeController(fakeDb, new CategoriesRepository(fakeDb), new MemeRepository(fakeDb));
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
+            ViewResult result = controller.Hot("Trending") as ViewResult;
+
+            var MemeList = (MemesViewModel)result.ViewData.Model;
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            bool a = true;
+            foreach (var meme in MemeList.Memes)
+            {
+                if (!(meme.Points <= 400 && meme.Points > 100))
+                {
+                    a = false;
+                    break;
+                }
+            }
+            Assert.IsTrue(a);
         }
-
         [TestMethod]
-        public void Contact()
+        public void AllFreshMemesPointUnder100()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            var fakeDb = new FakeGagDbContext();
+
+            HomeController controller = new HomeController(fakeDb, new CategoriesRepository(fakeDb), new MemeRepository(fakeDb));
 
             // Act
-            ViewResult result = controller.Contact() as ViewResult;
+            ViewResult result = controller.Hot("Fresh") as ViewResult;
+
+            var MemeList = (MemesViewModel)result.ViewData.Model;
 
             // Assert
-            Assert.IsNotNull(result);
+            bool a = true;
+            foreach (var meme in MemeList.Memes)
+            {
+                if (meme.Points > 100)
+                {
+                    a = false;
+                    break;
+                }
+            }
+            Assert.IsTrue(a);
         }
     }
 }
