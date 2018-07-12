@@ -54,9 +54,9 @@ namespace NET_student_project
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "640876596280168",
+               appSecret: "6ac43c5568387a20a92f4b4250d2cd19");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
