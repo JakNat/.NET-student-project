@@ -8,7 +8,9 @@ Tried to clone 9GAG (ASP.NET MVC 5)
 - [x] Some unit tests (using FakeGagDbContext and FakeDbSets)
 - [x] Adding users
 - [ ] Adding memes
-- [ ] Adding comments
+- [ ] Comment sytem
+      -[x] Adding Single comment
+      -[] Adding respone comments
 - [ ] Profile account
 
 ## Screenshots
