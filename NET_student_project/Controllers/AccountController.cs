@@ -154,15 +154,18 @@ namespace NET_student_project.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddClaim(user.Id, new Claim(ClaimTypes.GivenName, model.Name));
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     gagdb.Users.Add(new UserModel
                     {
-                        Name = model.Email,
-                        Password = model.Password
+                        Name = model.Name,
+                        Password = model.Password,
+                        ImagePath = "/Content/AvatarImages/RandomAvatar (2).jpg"
 
                     });
                     gagdb.SaveChanges();

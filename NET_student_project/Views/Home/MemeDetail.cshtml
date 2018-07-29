@@ -1,15 +1,21 @@
 ﻿
 @model  NET_student_project.ViewModels.DetailedMemeViewModel
-
-
+@using System.Security.Claims
+@using Microsoft.AspNet.Identity
 
 
 <h3><b>@Model.Title</b></h3>
 
 <img class="img-responsive" width="600" src=@Model.ImagePath />
 <h4>@Model.Points</h4>
+@using (Html.BeginForm())
+{
+    <input type="text" placeholder="Write comment" name="message" />
+    <input type="submit" value="Add Comment" />
+}
+<li>
+    <!--Html.ActionLink("Add Comment", "AddComment", "Comments", new { memeId = Model.MemeId + 1, message = Request.Form["comment"]}, null)-->
+</li>
 @Html.Partial("CommentDisplay", Model.Comments)
-
-
 <hr />
-
+\

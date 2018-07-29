@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NET_student_project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace NET_student_project.ViewModels
 {
-    public class DetailedMemeViewModel : BaseCategoriesViewModel
+    public class DetailedMemeViewModel : BaseCategoriesViewModel 
     {
         public int MemeId { get; set; }
         public string Title { get; set; }
@@ -13,5 +14,6 @@ namespace NET_student_project.ViewModels
         public int Points { get; set; }
         public int SComments { get; set; }
         public List<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
+        public CommentModel Comment{ get; set; }
     }
 }
