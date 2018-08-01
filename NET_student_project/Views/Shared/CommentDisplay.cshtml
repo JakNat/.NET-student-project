@@ -1,25 +1,27 @@
 ﻿
 @model IEnumerable<NET_student_project.ViewModels.CommentViewModel>
-
-@{foreach (var item in Model)
-    {
-        //string x =  "~" + item.User.ImagePath.ToString();
-
-     
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2"> <img class="img-responsive" width="60" src="@Url.Content(item.User.ImagePath)" /> </div>
-        <div class="col-sm-10">
-            <h5><b>@item.User.Name</b></h5>
-            <p>@item.Text</p>
-       </div>
-    </div>
-
-</div>
-
-       
-
-        
+@{Html.RenderAction("AddComment", "Comments"); }
+    @{foreach (var item in Model)
+        {
+            //string x =  "~" + item.User.ImagePath.ToString();
 
 
-    }}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"> <img class="img-responsive" width="60" src="@Url.Content(item.User.ImagePath)" /> </div>
+                    <div class="col-sm-10">
+                        <h5><b>@item.User.Name</b></h5>
+                        <p>@item.Text</p>
+                        @{//Html.RenderAction("_AddSubComment", "Comments", new { commentid = item.CommentId });
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+        }}
