@@ -29,7 +29,7 @@ namespace NET_student_project.Controllers
             _memeRepository = memeRepository;
         }
 
-        public ActionResult Hot(string id)
+        public ActionResult Index(string id)
         {
             var a = _memeRepository.GetAllHotMemes();
             if (id == "Hot")
@@ -56,28 +56,6 @@ namespace NET_student_project.Controllers
             var meme = _memeRepository.GetMemeById(id);
             meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
             
-            return View(meme
-            );
-        }
-        [Authorize]
-        [HttpPost]
-        public ActionResult MemeDetail(int id, string message)
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.GetUserName();
-            CommentModel comm = new CommentModel
-            {
-                User = _gagDb.Users.First(x => x.Name == name),
-                Text = message,
-                Meme = _gagDb.Memes.First(x => x.Id == id)
-            };
-
-            _gagDb.Comments.Add(comm);
-            _gagDb.SaveChanges();
-            var meme = _memeRepository.GetMemeById(id);
-            
-            meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
-
             return View(meme
             );
         }

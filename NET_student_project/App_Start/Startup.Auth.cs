@@ -6,14 +6,26 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using NET_student_project.Models;
+using NET_student_project.DataAccessLayer;
+using System.Threading.Tasks;
 
 namespace NET_student_project
 {
     public partial class Startup
     {
+        
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
+      /*  public async void Register(UserModel user, int x)
+        {
+        
+            var email = "Random_email_" + x + "@abc.com";
+            var u = new ApplicationUser { UserName = user.Name, Email = email };
+
+            var result = await UserManager.Creat(user, user.Password);
+        }*/
         public void ConfigureAuth(IAppBuilder app)
         {
+           
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);

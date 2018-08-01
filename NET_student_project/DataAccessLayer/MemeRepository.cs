@@ -86,7 +86,17 @@ namespace NET_student_project.DataAccessLayer
                         {
                             Name = c.User.Name,
                             ImagePath = c.User.ImagePath
-                        }
+                        },
+                        SubComments = c.SubComments.Select(sc => new CommentViewModel
+                        {
+                            Text = sc.Text,
+                            Upvotes = sc.Upvotes,
+                            User = new UserViewModel
+                            {
+                                Name = sc.User.Name,
+                                ImagePath = sc.User.ImagePath
+                            }
+                        }).ToList()
 
                     }).ToList()
 
@@ -105,12 +115,23 @@ namespace NET_student_project.DataAccessLayer
                 Title = m.Title,
                 Comments = _gagDb.Comments.Where(c => c.MemeId == id).Select(c => new CommentViewModel
                 {
+                    CommentId = c.Id,
                     Text = c.Text,
                      User = new UserViewModel
                      {
                          Name = c.User.Name,
                          ImagePath = c.User.ImagePath
                      }
+              /*      SubComments = c.SubComments.Select(sc => new CommentViewModel
+                    {
+                        Text = sc.Text,
+                        Upvotes = sc.Upvotes,
+                        User = new UserViewModel
+                        {
+                            Name = sc.User.Name,
+                            ImagePath = sc.User.ImagePath
+                        }
+                    }).ToList()*/
                 }).ToList()
 
                

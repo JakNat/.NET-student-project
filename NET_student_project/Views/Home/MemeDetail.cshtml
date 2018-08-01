@@ -8,14 +8,11 @@
 
 <img class="img-responsive" width="600" src=@Model.ImagePath />
 <h4>@Model.Points</h4>
-@using (Html.BeginForm())
-{
-    <input type="text" placeholder="Write comment" name="message" />
-    <input type="submit" value="Add Comment" />
-}
+
 <li>
     <!--Html.ActionLink("Add Comment", "AddComment", "Comments", new { memeId = Model.MemeId + 1, message = Request.Form["comment"]}, null)-->
 </li>
+@{Html.RenderAction("AddComment", "Comments");}
 @Html.Partial("CommentDisplay", Model.Comments)
 <hr />
 \
