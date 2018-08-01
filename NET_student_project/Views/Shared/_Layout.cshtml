@@ -31,9 +31,9 @@
             <div class="col-sm-2 sidenav ">
                 <h3>Popular</h3>
                 <ul class="nav">
-                    <li>@Html.ActionLink("Hot", "Hot", new { id = "Hot" })</li>
-                    <li>@Html.ActionLink("Trending", "Hot", new { id = "Trending" })</li>
-                    <li>@Html.ActionLink("Fresh", "Hot", new { id = "Fresh" })</li>
+                    <li>@Html.ActionLink("Hot", "Index","Home", new { id = "Hot" }, null)</li>
+                    <li>@Html.ActionLink("Trending", "Index", "Home", new { id = "Trending" }, null)</li>
+                    <li>@Html.ActionLink("Fresh", "Index", "Home", new { id = "Fresh" }, null)</li>
 
                 </ul>
 
@@ -41,7 +41,7 @@
                 <ul style="list-style-type: none">
                     @{foreach (var item in Model.CategoriesNames)
                         {
-                            <li>@Html.ActionLink(item, "MemesGetByCategory", new { id = item })</li>
+                            <li>@Html.ActionLink(item, "MemesGetByCategory","Home", new { id = item }, null)</li>
 
                             
                         }

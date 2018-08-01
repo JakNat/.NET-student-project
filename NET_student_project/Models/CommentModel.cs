@@ -23,6 +23,7 @@ namespace NET_student_project.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public virtual UserModel User { get; set; }
+        public virtual ICollection<CommentModel> SubComments { get; set; }
 
 
     }

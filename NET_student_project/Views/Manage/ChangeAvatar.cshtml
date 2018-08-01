@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "ChangeAvatar";
+}
+@{foreach (var avatar in ViewBag.avatars)
+    {
+        <img class="img-responsive" width="60" src="@Url.Content(avatar)" />
+    }
+}
+
+<h2>ChangeAvatar</h2>
+

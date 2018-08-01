@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NET_student_project.DataAccessLayer;
 using NET_student_project.Models;
 
 namespace NET_student_project.Controllers
@@ -15,6 +16,7 @@ namespace NET_student_project.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private GagDbContext _gag = new GagDbContext();
 
         public ManageController()
         {
@@ -64,13 +66,15 @@ namespace NET_student_project.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var userName = User.Identity.GetUserName();
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                ImagePath = _gag.Users.First(u => u.Name == userName).ImagePath
             };
             return View(model);
         }
@@ -217,6 +221,7 @@ namespace NET_student_project.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+          
             return View();
         }
 
@@ -225,6 +230,37 @@ namespace NET_student_project.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                if (user != null)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                }
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            }
+            AddErrors(result);
+            return View(model);
+        }
+        public ActionResult ChangeAvatar()
+        {
+            
+            UserRepository users = new UserRepository();
+            ViewBag.avatars = users.GetAvatarsPath();
+            return View();
+        }
+
+        //
+        // POST: /Manage/ChangePassword
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeAvatar(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {

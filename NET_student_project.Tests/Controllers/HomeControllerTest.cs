@@ -24,7 +24,7 @@ namespace NET_student_project.Tests.Controllers
             HomeController controller = new HomeController(fakeDb, new CategoriesRepository(fakeDb), new MemeRepository(fakeDb));
 
             // Act
-            ViewResult result = controller.Hot("Hot") as ViewResult;
+            ViewResult result = controller.Index("Hot") as ViewResult;
 
             var MemeList = (MemesViewModel)result.ViewData.Model;
 
@@ -50,7 +50,7 @@ namespace NET_student_project.Tests.Controllers
             HomeController controller = new HomeController(fakeDb, new CategoriesRepository(fakeDb), new MemeRepository(fakeDb));
 
             // Act
-            ViewResult result = controller.Hot("Trending") as ViewResult;
+            ViewResult result = controller.Index("Trending") as ViewResult;
 
             var MemeList = (MemesViewModel)result.ViewData.Model;
 
@@ -75,7 +75,7 @@ namespace NET_student_project.Tests.Controllers
             HomeController controller = new HomeController(fakeDb, new CategoriesRepository(fakeDb), new MemeRepository(fakeDb));
 
             // Act
-            ViewResult result = controller.Hot("Fresh") as ViewResult;
+            ViewResult result = controller.Index("Fresh") as ViewResult;
 
             var MemeList = (MemesViewModel)result.ViewData.Model;
 

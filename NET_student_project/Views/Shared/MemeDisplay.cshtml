@@ -5,11 +5,15 @@
 
 
 
-        <h3>  @Html.ActionLink(item.Title, "MemeDetail", new { id = item.MemeId })</h3>
+        <h3>  @Html.ActionLink(item.Title, "MemeDetail","Meme", new { id = item.MemeId },null)</h3>
         <img class="img-responsive" width="600" src=@item.ImagePath />
 
         <footer>@item.Points points  comments</footer>
-        <input type="button" value="Create" onclick="location.href='@Url.Action("Create", "User")'" />
+        <p>
+            @Html.ActionLink(" ", "AddPoint", "Meme", new { id = item.MemeId }, new { @class = "glyphicon glyphicon-plus" })
+              @Html.ActionLink(" ", "DecPoint", "Meme", new { id = item.MemeId }, new { @class = "glyphicon glyphicon-minus" })
+        </p>
+        
        
         <hr />
     }
