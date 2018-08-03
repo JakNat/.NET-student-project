@@ -6,7 +6,13 @@
 
 <div class="container">
     <h2>@ViewBag.Title</h2>
-    @Html.Partial("MemeDisplay", Model.Memes)
+    @{
+        foreach (var meme in Model.Memes)
+        {
+             Html.RenderAction("_ShortMeme", "Meme", new { id = meme.MemeId }); 
+        }
+
+    }
 
 
 </div>
