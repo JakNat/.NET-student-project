@@ -11,6 +11,7 @@ namespace NET_student_project.Models
         public UserModel()
         {
             LikedMemes = new List<MemeModel>();
+            NotLikedMemes = new List<MemeModel>();
         }
 
         [Key]
@@ -22,6 +23,7 @@ namespace NET_student_project.Models
         // public DateTime Updated { get; set; }
         public virtual ICollection<MemeModel> Memes { get; set; }
         public List<MemeModel>LikedMemes{ get; set; }
+        public List<MemeModel>NotLikedMemes{ get; set; }
         public virtual ICollection<CommentModel> Comments { get; set; }
 
       
