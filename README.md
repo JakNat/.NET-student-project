@@ -8,12 +8,14 @@ Tried to clone 9GAG (ASP.NET MVC 5)
 - [x] Some unit tests (using FakeGagDbContext and FakeDbSets)
 - [x] Adding users
 - [ ] Adding memes
-- [ ] Comment sytem
-      -[x] Adding Single comment
-      -[] Adding respone comments
-- [ ] Profile account
+ ### Comment sytem
+ -[x] Adding Single comment
+ -[] Adding respone comments
+ 
+ - [x] upvotes system (needs to be improved by jQuery)
+ - [ ] Profile account
 
 ## Screenshots
-(Page in animals category)
-![gag](https://user-images.githubusercontent.com/29101386/42686402-1a0df8ba-8696-11e8-946d-3e19a575d596.png)
+![scren1](https://user-images.githubusercontent.com/29101386/43652488-a91ae21a-9745-11e8-87a6-7eab81f8f630.png)
+
 
