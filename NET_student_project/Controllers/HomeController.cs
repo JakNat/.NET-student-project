@@ -21,7 +21,6 @@ namespace NET_student_project.Controllers
         {
             _gagDb = new GagDbContext();
         }
-
         public HomeController(IGagDbContext gagDb, CategoriesRepository categoriesRepository, MemeRepository memeRepository)
         {
             _gagDb = gagDb;
@@ -29,48 +28,34 @@ namespace NET_student_project.Controllers
             _memeRepository = memeRepository;
         }
 
-        public ActionResult Index(string id)
+        public ActionResult Index(string id = "Hot",int page = 0)
         {
-            var a = _memeRepository.GetAllHotMemes();
-            if (id == "Hot")
+            ViewBag.id = id;
+            ViewBag.page = page;
+            var memeList = _memeRepository.GetAllShortMemeByPopularity(id);
+            //checking for last page
+            if (page * 9 + 9 > memeList.Count)
             {
-                 a = _memeRepository.GetAllHotMemes();
+                return View(new ShortMemesListViewModel
+                {
+                    Memes = memeList.GetRange(page * 9, memeList.Count - page * 9),
+                    CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
+                });
             }
-            else if(id == "Trending")
+            return View(new ShortMemesListViewModel
             {
-                 a = _memeRepository.GetAllTrendingMemes();
-            }
-            else if (id == "Fresh")
-            {
-                a = _memeRepository.GetAllFreshMemes();
-            }
-            return View(new MemesViewModel
-            {
-                Memes = a,
+                Memes = memeList.GetRange(page * 9, 9),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             });
         }
-
-        public ActionResult MemeDetail(int id)
-        {    
-            var meme = _memeRepository.GetMemeById(id);
-            meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
-            
-            return View(meme
-            );
-        }
-
         public ActionResult MemesGetByCategory(string id)
         {
-            ViewBag.Title = id;
-          
-            return View(new MemesViewModel
+            ViewBag.Title = id; 
+            return View(new ShortMemesListViewModel
             {
                 Memes = _memeRepository.GetMemeByCategory(id),
-            CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
+                CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             });
         }
-        
-
     }
 }
