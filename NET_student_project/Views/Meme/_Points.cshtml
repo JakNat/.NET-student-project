@@ -1,0 +1,28 @@
+﻿@model  NET_student_project.ViewModels.ShortMemeViewModel
+<footer>
+    @{
+        if (ViewBag.check == 1)
+        { <p>
+                <button type="button" class="btn btn-success"> @Html.ActionLink(" ", "NeutralPoint", "Meme", new { id = Model.MemeId }, new { @class = "button glyphicon glyphicon-arrow-up" })</button>
+                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "DecPoint", "Meme", new { id = Model.MemeId }, new { @class = "glyphicon glyphicon-arrow-down" })</button>
+            </p>
+        }   
+        else if (ViewBag.check == 2)
+        {
+            <p>
+                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "AddPoint", "Meme", new { id = Model.MemeId }, new { @class = "button glyphicon glyphicon-arrow-up" })</button>
+                <button type="button" class="btn btn-danger"> @Html.ActionLink(" ", "NeutralPoint", "Meme", new { id = Model.MemeId }, new { @class = "glyphicon glyphicon-arrow-down" })</button>
+            </p>
+        }
+        else
+        {
+            <p>
+                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "AddPoint", "Meme", new { id = Model.MemeId }, new { @class = "button glyphicon glyphicon-arrow-up" })</button>
+                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "DecPoint", "Meme", new { id = Model.MemeId }, new { @class = "glyphicon glyphicon-arrow-down" })</button>
+            </p>
+        }
+    }
+
+    @Model.Points points @Model.SComments comments
+
+</footer>

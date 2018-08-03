@@ -1,11 +1,27 @@
-﻿@model NET_student_project.ViewModels.MemesViewModel
+﻿@model NET_student_project.ViewModels.ShortMemesListViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 
 <div class="container">
-<h2>Hot</h2>
-@Html.Partial("MemeDisplay", Model.Memes)
+    <h2>Hot</h2>
+    @{
+        foreach (var meme in Model.Memes)
+        {
+             Html.RenderAction("_ShortMeme", "Meme", new { id = meme.MemeId }); 
+        }
+
+    }
+    @{
+        if (ViewBag.page != 0)
+        {
+            <li>@Html.ActionLink("back", "Index", "Home", new { id = ViewBag.id, page = ViewBag.page - 1 }, null)</li>
+        }
+        if (Model.Memes.Count == 9)
+        {
+            <li>@Html.ActionLink("Next", "Index", "Home", new { id = ViewBag.id, page = ViewBag.page + 1 }, null)</li>
+        }
+    }
 
 
 </div>

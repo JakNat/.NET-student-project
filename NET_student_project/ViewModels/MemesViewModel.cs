@@ -8,20 +8,33 @@ namespace NET_student_project.ViewModels
 {
     public class MemesViewModel : BaseCategoriesViewModel
     {
-        public List<MemeViewModel> Memes { get; set; }
+        public List<ShortMemeViewModel> Memes { get; set; }
     }
 
-    public class MemeViewModel : BaseCategoriesViewModel
+    public class ShortMemeViewModel 
     {
         public int MemeId { get; set; }
         public string Title { get; set; }
         public string ImagePath { get; set; }
         public int Points { get; set; }
         public int SComments { get; set; }
-
-
     }
 
+    public class ShortMemesListViewModel : BaseCategoriesViewModel
+    {
+        public List<ShortMemeViewModel> Memes { get; set; }
+
+    }
+    /*  public class ShortMemeViewModel 
+      {
+          public int MemeId { get; set; }
+          public string Title { get; set; }
+          public string ImagePath { get; set; }
+          public int Points { get; set; }
+          public int SComments { get; set; }
+          public List<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
+          public CommentModel Comment { get; set; }
+      }*/
     public class DetailedMemeViewModel : BaseCategoriesViewModel
     {
         public int MemeId { get; set; }

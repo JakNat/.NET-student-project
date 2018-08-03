@@ -8,6 +8,6 @@ namespace NET_student_project.ViewModels
     public class CategoryViewModel  : BaseCategoriesViewModel
     {
         public string Name { get; set; }
-        public  List<MemeViewModel> Memes { get; set; }
+        public  List<ShortMemeViewModel> Memes { get; set; }
     }
 }

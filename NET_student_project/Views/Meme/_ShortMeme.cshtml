@@ -1,0 +1,7 @@
+﻿@model  NET_student_project.ViewModels.ShortMemeViewModel
+<h3>  @Html.ActionLink(Model.Title, "MemeDetail", "Meme", new { id = Model.MemeId }, null)</h3>
+<img class="img-responsive" width="600" src=@Model.ImagePath />
+
+
+
+@{Html.RenderAction("_Points", "Meme", new { id = Model.MemeId });}
