@@ -1,6 +1,9 @@
 # 9GAG MVC 
 Tried to clone 9GAG (ASP.NET MVC 5)
-## To-Do list
+
+To test 9gag you need to build project(it will create GagContext)
+and then run InitUserDataBase Query (/projectfolder) in GagContext db (needs to improve migrations :V)
+## To-Do list 
 - [x] Page by category
 - [x] Page by Priority(Hot, Trending, Fresh)
 - [x] Database (using Entity Framework Code-first)
