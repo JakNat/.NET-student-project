@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using NET_student_project.DataAccessLayer;
+using NET_student_project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,85 +28,68 @@ namespace NET_student_project.Controllers
             meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
             return View(meme);
         }
-
-     
-        public ActionResult _Points(int id)
-        {
-            ViewBag.check = 0;
-            try
-            {
-                var identity = (ClaimsIdentity)User.Identity;
-                var name = identity.GetUserName();
-                var user = _gag.Users.First(u => u.Name == name);
-                var meme = _gag.Memes.First(m => m.Id == id);
-               if (user.LikedMemes.Exists(l => l == meme))
-                {
-                    ViewBag.check = 1;
-                }
-               else if (user.NotLikedMemes.Exists(l => l == meme))
-                {
-                    ViewBag.check = 2;
-                }
-            }
-            catch (Exception)
-            {}
-            return PartialView(_memeRepository.GetShortMemeById(id));
-        }
-
+      
         [Authorize]
-        public ActionResult AddPoint(int id)
+        [HttpPost]
+        public ActionResult _AddPoint(int id)
         {
             var identity = (ClaimsIdentity)User.Identity;
             var name = identity.GetUserName();
             var user = _gag.Users.First(u => u.Name == name);
             var meme = _gag.Memes.First(m => m.Id == id);
-            _gag.Users.First(u => u.Name == name).LikedMemes.Add(_gag.Memes.First(m => m.Id == id));
+            if (user.NotLikedMemes.Exists(l => l == meme))
+            {
+                meme.Points += 2;
+                user.NotLikedMemes.Remove(meme);
+                _gag.Users.First(u => u.Name == name).LikedMemes.Add(_gag.Memes.First(m => m.Id == id));
+            }
+            else if (user.LikedMemes.Exists(l => l == meme))
+            {
+                meme.Points--;
+                user.LikedMemes.Remove(meme);
+            }
+            else
+            {
+                _gag.Users.First(u => u.Name == name).LikedMemes.Add(_gag.Memes.First(m => m.Id == id));
                 _gag.Memes.First(m => m.Id == id).Points++;
+            }
+            _gag.SaveChanges();
+            var shortMeme = _memeRepository.GetShortMemeById(id);
+            return PartialView(shortMeme);
+        }
+
+        [Authorize]
+        public ActionResult _DecPoint(int id)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var name = identity.GetUserName();
+            var user = _gag.Users.First(u => u.Name == name);
+            var meme = _gag.Memes.First(m => m.Id == id);
             if (user.NotLikedMemes.Exists(l => l == meme))
             {
                 meme.Points++;
                 user.NotLikedMemes.Remove(meme);
             }
-            _gag.SaveChanges();
-                return RedirectToAction("Index", "Home"); 
-        }
-        [Authorize]
-        public ActionResult DecPoint(int id)
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.GetUserName();
-            var user = _gag.Users.First(u => u.Name == name);
-            var meme = _gag.Memes.First(m => m.Id == id);
-            if (user.LikedMemes.Exists(l => l == meme))
+            else if (user.LikedMemes.Exists(l => l == meme))
             {
-                meme.Points--;
+                meme.Points -= 2;
                 user.LikedMemes.Remove(meme);
+                user.NotLikedMemes.Add(meme);
             }
-            _gag.Users.First(u => u.Name == name).NotLikedMemes.Add(_gag.Memes.First(m => m.Id == id));
-            _gag.Memes.First(m => m.Id == id).Points--;
-            _gag.SaveChanges();
-            return RedirectToAction("Index", "Home");
-        }
-        [Authorize]
-        public ActionResult NeutralPoint(int id)
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.GetUserName();
-            var user = _gag.Users.First(u => u.Name == name);
-            var meme = _gag.Memes.First(m => m.Id == id);
-            if (user.LikedMemes.Exists(l => l == meme))
+            else
             {
+                user.NotLikedMemes.Add(meme);
                 meme.Points--;
-                user.LikedMemes.Remove(meme);
             }
-            else if (user.NotLikedMemes.Exists(l => l == meme))
+            try
             {
-                meme.Points++;
-                user.NotLikedMemes.Remove(meme);
-            }         
-            _gag.SaveChanges();
-
-            return RedirectToAction("Index", "Home");
+                _gag.SaveChanges();
+            }
+            catch (Exception)
+            {
+            }
+            var shortMeme = _memeRepository.GetShortMemeById(id);
+            return PartialView("_AddPoint",shortMeme);
         }
     }
 }

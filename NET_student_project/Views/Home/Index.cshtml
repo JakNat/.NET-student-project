@@ -2,26 +2,38 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
+@section scripts{
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
 <div class="container">
-    <h2>Hot</h2>
+
     @{
         foreach (var meme in Model.Memes)
         {
-             Html.RenderAction("_ShortMeme", "Meme", new { id = meme.MemeId }); 
-        }
+            Html.RenderAction("_ShortMeme", "Meme", new { id = meme.MemeId });
 
-    }
-    @{
-        if (ViewBag.page != 0)
-        {
-            <li>@Html.ActionLink("back", "Index", "Home", new { id = ViewBag.id, page = ViewBag.page - 1 }, null)</li>
+            <div id="@string.Format("{0}_{1}","PointBlock", meme.MemeId)">
+                <footer>
+                    <p>
+                        @using (Ajax.BeginForm("_AddPoint", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", meme.MemeId) }))
+                        {
+                            <button type="submit" class="btn btn-default" value=@meme.MemeId name="id"> <span class="glyphicon glyphicon-arrow-up"></span></button>
+                        }
+                        @using (Ajax.BeginForm("_DecPoint", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", meme.MemeId) }))
+                        {
+                            <button type="submit" class="btn btn-default" value=@meme.MemeId name="id"> <span class="glyphicon glyphicon-arrow-down"></span></button>
+                        }
+                    </p>
+                    @meme.Points points @meme.SComments comments
+                </footer>
+            </div>
         }
+        <li>@Html.ActionLink("back", "Index", "Home", new { id = ViewBag.id, page = ViewBag.page - 1 }, null)</li>
         if (Model.Memes.Count == 9)
         {
             <li>@Html.ActionLink("Next", "Index", "Home", new { id = ViewBag.id, page = ViewBag.page + 1 }, null)</li>
         }
     }
-
-
 </div>
+

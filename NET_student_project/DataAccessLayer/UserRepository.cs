@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NET_student_project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,6 +23,25 @@ namespace NET_student_project.DataAccessLayer
 
             }
             return list;
+        }
+        public bool IsLikedByUser(UserModel user, MemeModel meme)
+        {
+            if (user.LikedMemes.Exists(l => l == meme))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool IsDislikedByUser(UserModel user, MemeModel meme)
+        {
+            if (user.NotLikedMemes.Exists(l => l == meme))
+            {
+                return true;
+            }
+            else
+                return false;
         }
 
     }
