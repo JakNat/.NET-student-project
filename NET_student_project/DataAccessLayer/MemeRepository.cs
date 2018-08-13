@@ -72,10 +72,13 @@ namespace NET_student_project.DataAccessLayer
                     SComments = _gagDb.Comments.Where(c => c.MemeId == id).Count()
                 };                
         }
+        public MemeModel GetMeme(int id)
+        {
+            return _gagDb.Memes.First(m => m.Id == id);
+        }
 
 
-
-        public DetailedMemeViewModel GetMemeById(int id)
+            public DetailedMemeViewModel GetMemeById(int id)
         {
             var m = _gagDb.Categories.SelectMany(c => c.Memes).First(c => c.Id == id);
             if (m.Comments != null)

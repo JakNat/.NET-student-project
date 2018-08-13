@@ -1,4 +1,5 @@
-﻿using NET_student_project.Models;
+﻿using NET_student_project.DataAccessLayer;
+using NET_student_project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,32 @@ namespace NET_student_project.ViewModels
 
     public class ShortMemesListViewModel : BaseCategoriesViewModel
     {
-        public List<ShortMemeViewModel> Memes { get; set; }
+        public ShortMemesListViewModel()
+        {
+            LikedMemes = new List<ShortMemeViewModel>();
+            DisLikedMemes = new List<ShortMemeViewModel>();
+        }
 
+        public List<ShortMemeViewModel> Memes { get; set; }
+        public List<ShortMemeViewModel> LikedMemes { get; set; }
+        public List<ShortMemeViewModel> DisLikedMemes { get; set; }
+
+        public void SetLikedMemes(UserModel user)
+        {
+            var userRepo = new UserRepository();
+            var memeRepo = new MemeRepository();
+     
+            foreach(var meme in Memes)
+            {
+                if(userRepo.IsLikedByUser(user, meme.MemeId))
+                {
+                   LikedMemes.Add(meme);
+                }else if (userRepo.IsDisLikedByUser(user, meme.MemeId))
+                {
+                    DisLikedMemes.Add(meme);
+                }
+            }
+        }
     }
     /*  public class ShortMemeViewModel 
       {

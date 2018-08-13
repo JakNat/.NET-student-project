@@ -9,22 +9,28 @@
 <div class="container">
 
     @{
+
         foreach (var meme in Model.Memes)
         {
             Html.RenderAction("_ShortMeme", "Meme", new { id = meme.MemeId });
 
-            <div id="@string.Format("{0}_{1}","PointBlock", meme.MemeId)">
+            <div id="@string.Format("{0}_{1}", "PointBlock", meme.MemeId)">
                 <footer>
-                    <p>
-                        @using (Ajax.BeginForm("_AddPoint", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", meme.MemeId) }))
-                        {
-                            <button type="submit" class="btn btn-default" value=@meme.MemeId name="id"> <span class="glyphicon glyphicon-arrow-up"></span></button>
-                        }
-                        @using (Ajax.BeginForm("_DecPoint", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", meme.MemeId) }))
-                        {
-                            <button type="submit" class="btn btn-default" value=@meme.MemeId name="id"> <span class="glyphicon glyphicon-arrow-down"></span></button>
-                        }
-                    </p>
+                  
+                            <p>
+                                @using (Ajax.BeginForm("_AddPoint", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", meme.MemeId) }))
+                                {
+                                    <button type="submit" class="btn btn-default" value=@meme.MemeId name="id"> <span class="glyphicon glyphicon-arrow-up"></span></button>
+                                }
+                                @using (Ajax.BeginForm("_DecPoint", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", meme.MemeId) }))
+                                {
+                                    <button type="submit" class="btn btn-default" value=@meme.MemeId name="id"> <span class="glyphicon glyphicon-arrow-down"></span></button>
+                                }
+
+                            </p>
+                      
+                    
+
                     @meme.Points points @meme.SComments comments
                 </footer>
             </div>

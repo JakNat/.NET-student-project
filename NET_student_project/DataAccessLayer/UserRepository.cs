@@ -24,25 +24,29 @@ namespace NET_student_project.DataAccessLayer
             }
             return list;
         }
-        public bool IsLikedByUser(UserModel user, MemeModel meme)
+           public bool IsLikedByUser(UserModel user, int memeId)
+           {
+               if (user.LikedMemes.Exists(x => x == memeId))
+               {
+                   return true;
+               }
+               else
+               {
+                   return false;
+               }
+           }
+
+           public bool IsDisLikedByUser(UserModel user, int memeId)
         {
-            if (user.LikedMemes.Exists(l => l == meme))
+            if (user.DisLikedMemes.Exists(l => l == memeId))
             {
                 return true;
             }
             else
-                return false;
-        }
-
-        public bool IsDislikedByUser(UserModel user, MemeModel meme)
-        {
-            if (user.NotLikedMemes.Exists(l => l == meme))
             {
-                return true;
-            }
-            else
                 return false;
-        }
-
+            }
+           }
+            
     }
 }
