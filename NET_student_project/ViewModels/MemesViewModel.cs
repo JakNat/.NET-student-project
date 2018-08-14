@@ -50,17 +50,13 @@ namespace NET_student_project.ViewModels
             }
         }
     }
-    /*  public class ShortMemeViewModel 
-      {
-          public int MemeId { get; set; }
-          public string Title { get; set; }
-          public string ImagePath { get; set; }
-          public int Points { get; set; }
-          public int SComments { get; set; }
-          public List<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
-          public CommentModel Comment { get; set; }
-      }*/
-    public class DetailedMemeViewModel : BaseCategoriesViewModel
+    public class PointsMemeViewModel
+    {
+        public int MemeId { get; set; }
+        public int Points { get; set; }
+        public int SComments { get; set; }
+    }
+        public class DetailedMemeViewModel : BaseCategoriesViewModel
     {
         public int MemeId { get; set; }
         public string Title { get; set; }

@@ -31,17 +31,9 @@ namespace NET_student_project.Controllers
 
         public ActionResult Index(string id = "Hot",int page = 0)
         {
-            var array = new int[] { 1, 3, 2, 1 };
-            
-            string result = string.Join("|", array);
-
-
-            List<int> array2 = result.Split('|').Select(int.Parse).ToList();
-            
             ViewBag.id = id;
             ViewBag.page = page;
             var memeList = _memeRepository.GetAllShortMemeByPopularity(id);
-            List<ShortMemeViewModel> likedMemeList;
             ShortMemesListViewModel list = null;
             if (page * 9 + 9 > memeList.Count)
             {
@@ -56,7 +48,6 @@ namespace NET_student_project.Controllers
                 Memes = memeList.GetRange(page * 9, 9),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             };
-
             try
             {
                 var identity = (ClaimsIdentity)User.Identity;
@@ -65,19 +56,27 @@ namespace NET_student_project.Controllers
                 list.SetLikedMemes(user);
             }
             catch (Exception)
-            {}
-           
+            {}      
             return View(list);
-
         }
-        public ActionResult MemesGetByCategory(string id)
+        public ActionResult MemesGetByCategory(string id = "Funny")
         {
-            ViewBag.Title = id; 
-            return View(new ShortMemesListViewModel
+            ViewBag.Title = id;
+            var list = new ShortMemesListViewModel
             {
                 Memes = _memeRepository.GetMemeByCategory(id),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-            });
+            };
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.GetUserName();
+                var user = _gagDb.Users.First(u => u.Name == name);
+                list.SetLikedMemes(user);
+            }
+            catch (Exception)
+            { }
+            return View(list);
         }
     }
 }

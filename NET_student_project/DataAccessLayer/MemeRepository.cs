@@ -113,6 +113,7 @@ namespace NET_student_project.DataAccessLayer
             }
             return new DetailedMemeViewModel
             {
+                MemeId = m.Id,
                 ImagePath = m.ImagePath,
                 Points = m.Points,
                 Title = m.Title,
@@ -128,6 +129,15 @@ namespace NET_student_project.DataAccessLayer
                 }).ToList()       
             };
         }
+        public PointsMemeViewModel GetPointsMemeViewModelByMemeModel(MemeModel meme)
+        {
+            return new PointsMemeViewModel
+            {
+                MemeId = meme.Id,
+                Points = meme.Points,
+                SComments = _gagDb.Comments.Where(c => c.MemeId == meme.Id).Count()
+            };
+        }
         public List<ShortMemeViewModel> GetMemeByCategory(string categoryName)
         {
             var a = _gagDb.Categories.Where(c => c.Name == categoryName).SelectMany(c => c.Memes).ToList();
@@ -137,7 +147,6 @@ namespace NET_student_project.DataAccessLayer
                 MemeId = m.Id,
                 Points = m.Points,
                 Title = m.Title,
-              //  SComments = m.Comments.Count()
             }).ToList();
         }
     }

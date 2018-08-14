@@ -8,12 +8,6 @@ namespace NET_student_project.Models
 {
     public class UserModel
     {
-        public UserModel()
-        {
-            LikedMemesString = "";
-           
-        }
-
         [Key]
         public int Id { get; set; }
    //     [Required]
@@ -22,10 +16,8 @@ namespace NET_student_project.Models
         public string ImagePath { get; set; }
         // public DateTime Updated { get; set; }
         public virtual ICollection<MemeModel> Memes { get; set; }
-        
         public string LikedMemesString { get; set; }
         public string DisLikedMemesString { get; set; }
-
         public List<int> LikedMemes
         {
             get
@@ -56,10 +48,32 @@ namespace NET_student_project.Models
                 DisLikedMemesString = string.Join(";", value);
             }
         }
+        public virtual ICollection<CommentModel> Comments { get; set; }
 
 
 
-
+        public bool IsLikingMeme(int id)
+        {
+            if (LikedMemes.Exists(i => i == id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsDisLikingMeme(int id)
+        {
+            if (DisLikedMemes.Exists(i => i == id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public void AddLikedMeme(int id)
         {
             if (string.IsNullOrEmpty(LikedMemesString))
@@ -99,7 +113,6 @@ namespace NET_student_project.Models
         }
         public void RemoveLikedMeme(int id)
         {
-            LikedMemes.RemoveAll(i => i == id);
             List<int> list = new List<int>();
             foreach (var x in LikedMemes)
             {
@@ -109,11 +122,7 @@ namespace NET_student_project.Models
                 }
             }
             LikedMemes = list;
-            var s = LikedMemes;
             LikedMemesString = string.Join(";", LikedMemes);
         }
-        public virtual ICollection<CommentModel> Comments { get; set; }
-
-      
     }
 }

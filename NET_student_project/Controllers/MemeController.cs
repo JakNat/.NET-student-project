@@ -16,7 +16,15 @@ namespace NET_student_project.Controllers
         private readonly GagDbContext _gag = new GagDbContext();
         private readonly MemeRepository  _memeRepository = new MemeRepository();
         private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
+        private readonly UserRepository _userRepository = new UserRepository();
 
+        UserModel GetLoggedUser()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var name = identity.GetUserName();
+            var user = _gag.Users.First(u => u.Name == name);
+            return user;
+        }
         public ActionResult _ShortMeme(int id)
         {
             var meme = _memeRepository.GetShortMemeById(id);
@@ -31,27 +39,23 @@ namespace NET_student_project.Controllers
       
         [Authorize]
         [HttpPost]
-        public ActionResult _AddPoint(int id)
+        public ActionResult _LikePost(int id)
         {
-            ViewBag.Status = 1;
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.GetUserName();
-            var user = _gag.Users.First(u => u.Name == name);
+            var user = GetLoggedUser();
             var meme = _gag.Memes.First(m => m.Id == id);
-            
-            if (user.DisLikedMemes.Exists(l => l == id))
+            if (user.IsDisLikingMeme(id))
             {
                 meme.Points += 2;
                 user.RemoveDisLikedMeme(id);
                 user.AddLikedMeme(id);
             }
-            else if (user.LikedMemes.Exists(i => i == id))
+            else if (user.IsLikingMeme(id))
             {
                 meme.Points--;
                 user.RemoveLikedMeme(id);
                 _gag.SaveChanges();
-                var shortMeme2 = _memeRepository.GetShortMemeById(id);
-                return PartialView("_AddPoint", shortMeme2);
+                var MemePoints2 = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
+                return PartialView("_AddPoint", MemePoints2);
             }
             else
             {
@@ -59,29 +63,24 @@ namespace NET_student_project.Controllers
                 meme.Points++;
             }
             _gag.SaveChanges();
-
-            var shortMeme = _memeRepository.GetShortMemeById(id);
-            return PartialView("_Liked", shortMeme);
+            var MemePoints = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
+            return PartialView("_Liked", MemePoints);
         }
 
         [Authorize]
-        public ActionResult _DecPoint(int id)
+        public ActionResult _DisLikePost(int id)
         {
-            ViewBag.Status = 3;
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.GetUserName();
-            var user = _gag.Users.First(u => u.Name == name);
+            var user = GetLoggedUser();
             var meme = _gag.Memes.First(m => m.Id == id);
-           
-            if (user.DisLikedMemes.Exists(l => l == id))
+            if (user.IsDisLikingMeme(id))
             {
-                meme.Points ++;
+                meme.Points++;
                 user.RemoveDisLikedMeme(id);
                 _gag.SaveChanges();
-                var shortMeme2 = _memeRepository.GetShortMemeById(id);
-                return PartialView("_AddPoint", shortMeme2);
+                var MemePoints2 = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
+                return PartialView("_AddPoint", MemePoints2);
             }
-            else if (user.LikedMemes.Exists(i => i == id))
+            else if (user.IsLikingMeme(id))
             {
                 meme.Points--;
                 meme.Points--;
@@ -94,9 +93,8 @@ namespace NET_student_project.Controllers
                 meme.Points--;
             }
             _gag.SaveChanges();
-
-            var shortMeme = _memeRepository.GetShortMemeById(id);
-            return PartialView("_DisLiked",shortMeme);
+            var MemePoints = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
+            return PartialView("_DisLiked", MemePoints);
         }
     }
 }
