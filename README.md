@@ -10,12 +10,13 @@ and then run InitUserDataBase Query (/projectfolder) in GagContext db (needs to 
 - [x] Identity Autherizations
 - [x] Some unit tests (using FakeGagDbContext and FakeDbSets)
 - [x] Adding users
+- [x] upvotes system (using AJAX)
 - [ ] Adding memes
  ### Comment sytem
  -[x] Adding Single comment
  -[] Adding respone comments
  
- - [x] upvotes system (needs to be improved by jQuery)
+ 
  - [ ] Profile account
 
 ## Screenshots
