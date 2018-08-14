@@ -33,6 +33,7 @@ namespace NET_student_project.DataAccessLayer
         public IDbSet<CommentModel> Comments{ get; set; }
         public IDbSet<CategoryModel> Categories { get; set; }
 
+
         
     }
 

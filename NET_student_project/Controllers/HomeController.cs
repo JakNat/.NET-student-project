@@ -17,6 +17,7 @@ namespace NET_student_project.Controllers
            private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         private readonly MemeRepository _memeRepository = new MemeRepository();
 
+
         public HomeController()
         {
             _gagDb = new GagDbContext();
@@ -33,29 +34,49 @@ namespace NET_student_project.Controllers
             ViewBag.id = id;
             ViewBag.page = page;
             var memeList = _memeRepository.GetAllShortMemeByPopularity(id);
-            //checking for last page
+            ShortMemesListViewModel list = null;
             if (page * 9 + 9 > memeList.Count)
             {
-                return View(new ShortMemesListViewModel
+                list = new ShortMemesListViewModel
                 {
                     Memes = memeList.GetRange(page * 9, memeList.Count - page * 9),
                     CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-                });
+                };
             }
-            return View(new ShortMemesListViewModel
+            list = new ShortMemesListViewModel
             {
                 Memes = memeList.GetRange(page * 9, 9),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-            });
+            };
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.GetUserName();
+                var user = _gagDb.Users.First(u => u.Name == name);
+                list.SetLikedMemes(user);
+            }
+            catch (Exception)
+            {}      
+            return View(list);
         }
-        public ActionResult MemesGetByCategory(string id)
+        public ActionResult MemesGetByCategory(string id = "Funny")
         {
-            ViewBag.Title = id; 
-            return View(new ShortMemesListViewModel
+            ViewBag.Title = id;
+            var list = new ShortMemesListViewModel
             {
                 Memes = _memeRepository.GetMemeByCategory(id),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
-            });
+            };
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.GetUserName();
+                var user = _gagDb.Users.First(u => u.Name == name);
+                list.SetLikedMemes(user);
+            }
+            catch (Exception)
+            { }
+            return View(list);
         }
     }
 }
