@@ -19,12 +19,58 @@ namespace NET_student_project.DataAccessLayer
         {
             _gagDb = gagDb;
         }
-
+        public MemeModel GetMemeModelById(int id)
+        {
+            return _gagDb.Memes.First(m => m.Id == id);
+        }
+        public ShortMemeViewModel GetShortMemeById(int id)
+        {
+            var m = GetMemeModelById(id);
+           
+            return new ShortMemeViewModel
+            {
+                MemeId = m.Id,
+                ImagePath = m.ImagePath,
+                Points = m.Points,
+                Title = m.Title,
+                SComments = _gagDb.Comments.Where(c => c.MemeId == id).Count()
+            };
+        }
+        public DetailedMemeViewModel GetDetailedMemeById(int id)
+        {
+            var m = GetMemeModelById(id);
+            return new DetailedMemeViewModel
+            {
+                MemeId = m.Id,
+                ImagePath = m.ImagePath,
+                Points = m.Points,
+                Title = m.Title,
+                Comments = _gagDb.Comments.Where(c => c.MemeId == id).Select(c => new CommentViewModel
+                {
+                    CommentId = c.Id,
+                    Text = c.Text,
+                    User = new UserViewModel
+                    {
+                        Name = c.User.Name,
+                        ImagePath = c.User.ImagePath
+                    }
+                }).ToList()
+            };
+        }
+        public PointsMemeViewModel GetPointsMeme(MemeModel meme)
+        {
+            return new PointsMemeViewModel
+            {
+                MemeId = meme.Id,
+                Points = meme.Points,
+                SComments = _gagDb.Comments.Where(c => c.MemeId == meme.Id).Count()
+            };
+        }
         public List<ShortMemeViewModel> GetAllShortMemeByPopularity(string type)
         {
             if (type == "Hot")
             {
-                return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points > 400).ToList().Select(m => new ShortMemeViewModel
+                return _gagDb.Memes.Where(m => m.Points > 400).ToList().Select(m => new ShortMemeViewModel
                 {
                     ImagePath = m.ImagePath,
                     MemeId = m.Id,
@@ -58,90 +104,11 @@ namespace NET_student_project.DataAccessLayer
                 }
                 ).ToList();
             }
-        }
-        public ShortMemeViewModel GetShortMemeById(int id)
-        {
-            var m = _gagDb.Categories.SelectMany(c => c.Memes).First(c => c.Id == id);
-         
-                return new ShortMemeViewModel
-                {
-                    MemeId = m.Id,
-                    ImagePath = m.ImagePath,
-                    Points = m.Points,
-                    Title = m.Title,
-                    SComments = _gagDb.Comments.Where(c => c.MemeId == id).Count()
-                };                
-        }
-        public MemeModel GetMeme(int id)
-        {
-            return _gagDb.Memes.First(m => m.Id == id);
-        }
-
-
-            public DetailedMemeViewModel GetMemeById(int id)
-        {
-            var m = _gagDb.Categories.SelectMany(c => c.Memes).First(c => c.Id == id);
-            if (m.Comments != null)
-            {
-                return new DetailedMemeViewModel
-                {
-                    ImagePath = m.ImagePath,
-
-                    Points = m.Points,
-                    Title = m.Title,
-                    Comments = m.Comments.Select(c => new CommentViewModel
-                    {
-                        Text = c.Text,
-                        Upvotes = c.Upvotes,
-                        User = new UserViewModel
-                        {
-                            Name = c.User.Name,
-                            ImagePath = c.User.ImagePath
-                        },
-                        SubComments = c.SubComments.Select(sc => new CommentViewModel
-                        {
-                            Text = sc.Text,
-                            Upvotes = sc.Upvotes,
-                            User = new UserViewModel
-                            {
-                                Name = sc.User.Name,
-                                ImagePath = sc.User.ImagePath
-                            }
-                        }).ToList()
-                    }).ToList()
-                };
-            }
-            return new DetailedMemeViewModel
-            {
-                MemeId = m.Id,
-                ImagePath = m.ImagePath,
-                Points = m.Points,
-                Title = m.Title,
-                Comments = _gagDb.Comments.Where(c => c.MemeId == id).Select(c => new CommentViewModel
-                {
-                    CommentId = c.Id,
-                    Text = c.Text,
-                     User = new UserViewModel
-                     {
-                         Name = c.User.Name,
-                         ImagePath = c.User.ImagePath
-                     }
-                }).ToList()       
-            };
-        }
-        public PointsMemeViewModel GetPointsMemeViewModelByMemeModel(MemeModel meme)
-        {
-            return new PointsMemeViewModel
-            {
-                MemeId = meme.Id,
-                Points = meme.Points,
-                SComments = _gagDb.Comments.Where(c => c.MemeId == meme.Id).Count()
-            };
-        }
+        }       
         public List<ShortMemeViewModel> GetMemeByCategory(string categoryName)
         {
-            var a = _gagDb.Categories.Where(c => c.Name == categoryName).SelectMany(c => c.Memes).ToList();
-            return a.Select(m => new ShortMemeViewModel
+            var memes = _gagDb.Memes.Where(x => x.Category.Name == categoryName);
+            return memes.Select(m => new ShortMemeViewModel
             {
                 ImagePath = m.ImagePath,
                 MemeId = m.Id,

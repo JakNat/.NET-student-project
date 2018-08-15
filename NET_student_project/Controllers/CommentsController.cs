@@ -13,64 +13,28 @@ namespace NET_student_project.Controllers
     public class CommentsController : Controller
     {
         private readonly GagDbContext _gagDb = new GagDbContext();
-
-        public ActionResult AddComment()
-        {
-            return PartialView();
-        }
-        [Authorize]
-        [ChildActionOnly]
-        [HttpPost]
-        public ActionResult AddComment(int id, string message)
+        private readonly MemeRepository _memeRepository = new MemeRepository();
+        private readonly UserRepository _userRepository = new UserRepository();
+        UserModel GetLoggedUser()
         {
             var identity = (ClaimsIdentity)User.Identity;
             var name = identity.GetUserName();
+            var user = _gagDb.Users.First(u => u.Name == name);
+            return user;
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult _AddComment(int id, string message)
+        {
             CommentModel comm = new CommentModel
             {
-                User = _gagDb.Users.First(x => x.Name == name),
+                User = GetLoggedUser(),
                 Text = message,
                 Meme = _gagDb.Memes.First(x => x.Id == id)
             };
             _gagDb.Comments.Add(comm);
             _gagDb.SaveChanges();
-            return PartialView();
-        }
-
-        public ActionResult _AddSubComment(int commentid)
-        {
-            ViewBag.id = commentid;
-            return PartialView();
-        }
-        [Authorize]
-        [ChildActionOnly]
-        [HttpPost]
-        public ActionResult _AddSubComment(int commentid, string subMessage)
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.GetUserName();
-            CommentModel comm = new CommentModel
-            {
-                User = _gagDb.Users.First(x => x.Name == name),
-                Text = subMessage,
-               
-            };
-            try
-            {
-                _gagDb.Comments.First(c => c.Id == commentid).SubComments.Add(comm);
-            }
-            catch (Exception)
-            {
-                _gagDb.Comments.First(c => c.Id == commentid).SubComments = new List<CommentModel>();
-                _gagDb.Comments.First(c => c.Id == commentid).SubComments.Add(comm);
-            }
-           
-            _gagDb.SaveChanges();
-
-            return PartialView(
-
-            );
-        }
-
-
+            return PartialView(_memeRepository.GetDetailedMemeById(id));
+        }     
     }
 }

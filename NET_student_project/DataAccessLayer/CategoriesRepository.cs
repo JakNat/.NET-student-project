@@ -18,7 +18,6 @@ namespace NET_student_project.DataAccessLayer
         {
             _gagDb = gagDb;
         }
-
         public List<CategoryModel> GetAllCategories()
         {
             return _gagDb.Categories.ToList();

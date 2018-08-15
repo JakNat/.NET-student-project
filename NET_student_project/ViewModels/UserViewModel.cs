@@ -9,7 +9,5 @@ namespace NET_student_project.ViewModels
     {
         public string Name { get; set; }
         public string ImagePath { get; set; }
-
-
     }
 }

@@ -12,42 +12,26 @@ namespace NET_student_project.DataAccessLayer
     public class UserRepository
     {
         private GagDbContext _gag = new GagDbContext();
-       public List<string> GetAvatarsPath()
+        public List<string> GetAvatarsPath()
         {
             var list = new List<string>();
-            foreach(var user in _gag.Users)
+            foreach (var user in _gag.Users)
             {
                 var path = user.ImagePath;
-                if (!list.Contains(path)) 
+                if (!list.Contains(path))
                 {
                     list.Add(path);
                 }
             }
             return list;
         }
-           public bool IsLikedByUser(UserModel user, int memeId)
-           {
-               if (user.LikedMemes.Exists(x => x == memeId))
-               {
-                   return true;
-               }
-               else
-               {
-                   return false;
-               }
-           }
-
-           public bool IsDisLikedByUser(UserModel user, int memeId)
+        public bool IsLikedByUser(UserModel user, int memeId)
         {
-            if (user.DisLikedMemes.Exists(l => l == memeId))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-           }
-            
+            return user.LikedMemes.Exists(l => l == memeId) ? true : false;
+        }
+        public bool IsDisLikedByUser(UserModel user, int memeId)
+        {
+            return user.DisLikedMemes.Exists(l => l == memeId) ? true : false;
+        }
     }
 }

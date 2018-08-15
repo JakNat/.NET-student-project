@@ -41,9 +41,7 @@
                 <ul style="list-style-type: none">
                     @{foreach (var item in Model.CategoriesNames)
                         {
-                            <li>@Html.ActionLink(item, "MemesGetByCategory","Home", new { id = item }, null)</li>
-
-                            
+                            <li>@Html.ActionLink(item, "MemesGetByCategory","Home", new { id = item }, null)</li>               
                         }
                     }
                 </ul>

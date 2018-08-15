@@ -32,11 +32,10 @@ namespace NET_student_project.Controllers
         }
         public ActionResult MemeDetail(int id)
         {
-            var meme = _memeRepository.GetMemeById(id);
+            var meme = _memeRepository.GetDetailedMemeById(id);
             meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
             return View(meme);
         }
-      
         [Authorize]
         [HttpPost]
         public ActionResult _LikePost(int id)
@@ -54,8 +53,8 @@ namespace NET_student_project.Controllers
                 meme.Points--;
                 user.RemoveLikedMeme(id);
                 _gag.SaveChanges();
-                var MemePoints2 = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
-                return PartialView("_AddPoint", MemePoints2);
+                var MemePoints2 = _memeRepository.GetPointsMeme(meme);
+                return PartialView("_Points", MemePoints2);
             }
             else
             {
@@ -63,7 +62,7 @@ namespace NET_student_project.Controllers
                 meme.Points++;
             }
             _gag.SaveChanges();
-            var MemePoints = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
+            var MemePoints = _memeRepository.GetPointsMeme(meme);
             return PartialView("_Liked", MemePoints);
         }
 
@@ -77,8 +76,8 @@ namespace NET_student_project.Controllers
                 meme.Points++;
                 user.RemoveDisLikedMeme(id);
                 _gag.SaveChanges();
-                var MemePoints2 = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
-                return PartialView("_AddPoint", MemePoints2);
+                var MemePoints2 = _memeRepository.GetPointsMeme(meme);
+                return PartialView("_Points", MemePoints2);
             }
             else if (user.IsLikingMeme(id))
             {
@@ -93,7 +92,7 @@ namespace NET_student_project.Controllers
                 meme.Points--;
             }
             _gag.SaveChanges();
-            var MemePoints = _memeRepository.GetPointsMemeViewModelByMemeModel(meme);
+            var MemePoints = _memeRepository.GetPointsMeme(meme);
             return PartialView("_DisLiked", MemePoints);
         }
     }

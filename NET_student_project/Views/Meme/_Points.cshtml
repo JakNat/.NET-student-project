@@ -1,28 +1,23 @@
-﻿@model  NET_student_project.ViewModels.ShortMemeViewModel
-<footer>
-    @{
-        if (ViewBag.check == 1)
-        { <p>
-                <button type="button" class="btn btn-success"> @Html.ActionLink(" ", "AddPoint", "Meme", new { id = Model.MemeId }, new { @class = "button glyphicon glyphicon-arrow-up" })</button>
-                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "DecPoint", "Meme", new { id = Model.MemeId }, new { @class = "glyphicon glyphicon-arrow-down" })</button>
-            </p>
-        }   
-        else if (ViewBag.check == 2)
-        {
-            <p>
-                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "AddPoint", "Meme", new { id = Model.MemeId }, new { @class = "button glyphicon glyphicon-arrow-up" })</button>
-                <button type="button" class="btn btn-danger"> @Html.ActionLink(" ", "DecPoint", "Meme", new { id = Model.MemeId }, new { @class = "glyphicon glyphicon-arrow-down" })</button>
-            </p>
-        }
-        else
-        {
-            <p>
-                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "AddPoint", "Meme", new { id = Model.MemeId }, new { @class = "button glyphicon glyphicon-arrow-up" })</button>
-                <button type="button" class="btn btn-default"> @Html.ActionLink(" ", "DecPoint", "Meme", new { id = Model.MemeId }, new { @class = "glyphicon glyphicon-arrow-down" })</button>
-            </p>
-        }
-    }
+﻿@model NET_student_project.ViewModels.PointsMemeViewModel
 
-    @Model.Points points @Model.SComments comments
-
-</footer>
+<div id="@string.Format("{0}_{1}", "PointBlock", Model.MemeId)">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-3">
+                    @using (Ajax.BeginForm("_LikePost", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", Model.MemeId) }))
+                    {
+                        <button type="submit" class="btn btn-default" value=@Model.MemeId name="id"> <span class="glyphicon glyphicon-arrow-up"></span></button>
+                    }
+                </div>
+                <div class="col-md-3">
+                    @using (Ajax.BeginForm("_DisLikePost", "Meme", new AjaxOptions { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Format("{0}_{1}", "PointBlock", Model.MemeId) }))
+                    {
+                        <button type="submit" class="btn btn-default" value=@Model.MemeId name="id"> <span class="glyphicon glyphicon-arrow-down"></span></button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <p>@Model.Points points @Model.SComments comments</p>
+</div>

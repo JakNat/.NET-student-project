@@ -14,10 +14,8 @@ namespace NET_student_project.Controllers
     public class HomeController : Controller
     {
         private readonly IGagDbContext _gagDb;
-           private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
+        private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         private readonly MemeRepository _memeRepository = new MemeRepository();
-
-
         public HomeController()
         {
             _gagDb = new GagDbContext();
@@ -28,7 +26,6 @@ namespace NET_student_project.Controllers
             _categoriesRepository = categoriesRepository;
             _memeRepository = memeRepository;
         }
-
         public ActionResult Index(string id = "Hot",int page = 0)
         {
             ViewBag.id = id;
