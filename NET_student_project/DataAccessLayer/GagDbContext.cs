@@ -25,6 +25,10 @@ namespace NET_student_project.DataAccessLayer
         {
 
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Entity<CommentModel>()
+                    .HasRequired(p => p.Meme)
+                    .WithMany(t => t.Comments)
+                    .HasForeignKey(p => p.MemeId);
 
         }
 

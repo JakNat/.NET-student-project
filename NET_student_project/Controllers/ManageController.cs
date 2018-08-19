@@ -74,7 +74,8 @@ namespace NET_student_project.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                ImagePath = _gag.Users.First(u => u.Name == userName).ImagePath
+                ImagePath = _gag.Users.First(u => u.Name == userName).ImagePath,
+                LikedMemes = _gag.Users.First(u => u.Name == userName).LikedMemes
             };
             return View(model);
         }

@@ -11,8 +11,9 @@ namespace NET_student_project.Models
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public string ImagePath { get; set; }
-     //   [Required]
+        [Required]
         public string Title { get; set; }
         public int Points { get; set; }
         public virtual ICollection<CommentModel> Comments  { get; set; } 
@@ -23,7 +24,5 @@ namespace NET_student_project.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public virtual UserModel User { get; set; }
-
-       
     }
 }

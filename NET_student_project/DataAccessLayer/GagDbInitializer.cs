@@ -151,10 +151,7 @@ namespace NET_student_project.DataAccessLayer
                     });
                 }
             }
-            foreach(var cat in Categories)
-            {
-                context.Categories.Add(cat);
-            }
+            Categories.ForEach(c => context.Categories.Add(c));
             base.Seed(context);
         }
     }

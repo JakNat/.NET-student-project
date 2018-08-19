@@ -23,21 +23,13 @@ namespace NET_student_project.ViewModels
 
     public class ShortMemesListViewModel : BaseCategoriesViewModel
     {
-        public ShortMemesListViewModel()
-        {
-            LikedMemes = new List<ShortMemeViewModel>();
-            DisLikedMemes = new List<ShortMemeViewModel>();
-        }
-
         public List<ShortMemeViewModel> Memes { get; set; }
-        public List<ShortMemeViewModel> LikedMemes { get; set; }
-        public List<ShortMemeViewModel> DisLikedMemes { get; set; }
-
+        public List<ShortMemeViewModel> LikedMemes { get; set; } = new List<ShortMemeViewModel>();
+        public List<ShortMemeViewModel> DisLikedMemes { get; set; } = new List<ShortMemeViewModel>();
         public void SetLikedMemes(UserModel user)
         {
             var userRepo = new UserRepository();
-            var memeRepo = new MemeRepository();
-     
+            var memeRepo = new MemeRepository();  
             foreach(var meme in Memes)
             {
                 if(userRepo.IsLikedByUser(user, meme.MemeId))
@@ -56,7 +48,7 @@ namespace NET_student_project.ViewModels
         public int Points { get; set; }
         public int SComments { get; set; }
     }
-        public class DetailedMemeViewModel : BaseCategoriesViewModel
+    public class DetailedMemeViewModel : BaseCategoriesViewModel
     {
         public int MemeId { get; set; }
         public string Title { get; set; }

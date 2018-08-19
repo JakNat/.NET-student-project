@@ -10,12 +10,8 @@ namespace NET_student_project.Models
     {
         [Key]
         public int Id { get; set; }
-       // [Required]
+        [Required]
         public string Name { get; set; }
-
-
         public virtual ICollection<MemeModel> Memes { get; set; }
-
-
     }
 } 

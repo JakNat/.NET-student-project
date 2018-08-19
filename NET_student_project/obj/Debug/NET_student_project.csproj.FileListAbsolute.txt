@@ -738,3 +738,8 @@ C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\
 C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\obj\Debug\NET_student_project.csproj.CopyComplete
 C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\obj\Debug\NET_student_project.dll
 C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\obj\Debug\NET_student_project.pdb
+C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\bin\AutoMapper.dll
+C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\bin\System.ValueTuple.dll
+C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\bin\AutoMapper.pdb
+C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\bin\AutoMapper.xml
+C:\Users\bobotb\Desktop\New folder (2)\.NET-student-project\NET_student_project\bin\System.ValueTuple.xml

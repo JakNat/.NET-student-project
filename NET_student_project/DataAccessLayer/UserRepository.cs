@@ -26,12 +26,10 @@ namespace NET_student_project.DataAccessLayer
             return list;
         }
         public bool IsLikedByUser(UserModel user, int memeId)
-        {
-            return user.LikedMemes.Exists(l => l == memeId) ? true : false;
-        }
+            => user.LikedMemes.Exists(l => l == memeId) ? true : false;
+        
         public bool IsDisLikedByUser(UserModel user, int memeId)
-        {
-            return user.DisLikedMemes.Exists(l => l == memeId) ? true : false;
-        }
+            => user.DisLikedMemes.Exists(l => l == memeId) ? true : false;
+       
     }
 }

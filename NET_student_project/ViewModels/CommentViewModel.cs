@@ -12,6 +12,5 @@ namespace NET_student_project.ViewModels
         public string Text { get; set; }
         public  UserViewModel User { get; set; }
         public virtual ICollection<CommentViewModel> SubComments  { get; set; }
-
     }
 }

@@ -34,7 +34,7 @@ namespace NET_student_project.Controllers
             };
             _gagDb.Comments.Add(comm);
             _gagDb.SaveChanges();
-            return PartialView(_memeRepository.GetDetailedMemeById(id));
+            return PartialView(_memeRepository.GetDetailedMemeAsync(id));
         }     
     }
 }

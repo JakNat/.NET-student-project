@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,7 +18,6 @@ namespace NET_student_project.Controllers
         private readonly MemeRepository  _memeRepository = new MemeRepository();
         private readonly CategoriesRepository _categoriesRepository = new CategoriesRepository();
         private readonly UserRepository _userRepository = new UserRepository();
-
         UserModel GetLoggedUser()
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -27,12 +27,12 @@ namespace NET_student_project.Controllers
         }
         public ActionResult _ShortMeme(int id)
         {
-            var meme = _memeRepository.GetShortMemeById(id);
+            var meme = _memeRepository.GetShortMeme(id);
             return PartialView(meme);
         }
-        public ActionResult MemeDetail(int id)
+        public async Task<ActionResult> MemeDetail(int id = 1)
         {
-            var meme = _memeRepository.GetDetailedMemeById(id);
+            var meme = await _memeRepository.GetDetailedMemeAsync(id);
             meme.CategoriesNames = _categoriesRepository.GetAllCategoriesNames();
             return View(meme);
         }
@@ -67,6 +67,7 @@ namespace NET_student_project.Controllers
         }
 
         [Authorize]
+        [HttpPost]
         public ActionResult _DisLikePost(int id)
         {
             var user = GetLoggedUser();

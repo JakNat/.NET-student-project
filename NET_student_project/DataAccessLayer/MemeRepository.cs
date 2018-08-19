@@ -5,116 +5,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Threading.Tasks;
+using AutoMapper;
 
 namespace NET_student_project.DataAccessLayer
 {
     public class MemeRepository
     {
         private readonly IGagDbContext _gagDb = new GagDbContext();
+        private readonly IMapper _mapper;
         public MemeRepository()
         {
             _gagDb = new GagDbContext();
+            _mapper = AutoMapperConfig.Initialize();
         }
         public MemeRepository(IGagDbContext gagDb)
         {
             _gagDb = gagDb;
         }
-        public MemeModel GetMemeModelById(int id)
-        {
-            return _gagDb.Memes.First(m => m.Id == id);
-        }
-        public ShortMemeViewModel GetShortMemeById(int id)
-        {
-            var m = GetMemeModelById(id);
-           
-            return new ShortMemeViewModel
-            {
-                MemeId = m.Id,
-                ImagePath = m.ImagePath,
-                Points = m.Points,
-                Title = m.Title,
-                SComments = _gagDb.Comments.Where(c => c.MemeId == id).Count()
-            };
-        }
-        public DetailedMemeViewModel GetDetailedMemeById(int id)
-        {
-            var m = GetMemeModelById(id);
-            return new DetailedMemeViewModel
-            {
-                MemeId = m.Id,
-                ImagePath = m.ImagePath,
-                Points = m.Points,
-                Title = m.Title,
-                Comments = _gagDb.Comments.Where(c => c.MemeId == id).Select(c => new CommentViewModel
-                {
-                    CommentId = c.Id,
-                    Text = c.Text,
-                    User = new UserViewModel
-                    {
-                        Name = c.User.Name,
-                        ImagePath = c.User.ImagePath
-                    }
-                }).ToList()
-            };
-        }
+        public async Task<MemeModel> GetAsync(int id)
+            => await _gagDb.Memes.Include(u => u.Comments.Select(x => x.User)).Include(b => b.Comments).FirstOrDefaultAsync(m => m.Id == id);
+
+        public MemeModel Get(int id)
+            =>  _gagDb.Memes.Include(b => b.Comments).FirstOrDefault(m => m.Id == id);
+
+        public ShortMemeViewModel GetShortMeme(int id) 
+            => _mapper.Map<MemeModel, ShortMemeViewModel>(Get(id));
+
+        public async Task<ShortMemeViewModel> GetShortMemeAsync(int id) 
+            => _mapper.Map<MemeModel, ShortMemeViewModel>(await GetAsync(id));
+
+        public async Task<DetailedMemeViewModel> GetDetailedMemeAsync(int id) 
+            => _mapper.Map<MemeModel, DetailedMemeViewModel>(await GetAsync(id));
+      
         public PointsMemeViewModel GetPointsMeme(MemeModel meme)
+        => new PointsMemeViewModel
         {
-            return new PointsMemeViewModel
-            {
-                MemeId = meme.Id,
-                Points = meme.Points,
-                SComments = _gagDb.Comments.Where(c => c.MemeId == meme.Id).Count()
-            };
-        }
-        public List<ShortMemeViewModel> GetAllShortMemeByPopularity(string type)
+            MemeId = meme.Id,
+            Points = meme.Points,
+            SComments = _gagDb.Comments.Where(c => c.MemeId == meme.Id).Count()
+        };
+        public async Task<List<ShortMemeViewModel>> GetShortMemesAsync(string type)
         {
             if (type == "Hot")
             {
-                return _gagDb.Memes.Where(m => m.Points > 400).ToList().Select(m => new ShortMemeViewModel
-                {
-                    ImagePath = m.ImagePath,
-                    MemeId = m.Id,
-                    Points = m.Points,
-                    Title = m.Title,
-                    SComments = _gagDb.Comments.Where(c => c.MemeId == m.Id).Count()
-                }
-                ).ToList();
+                var list = await _gagDb.Memes.AsQueryable().Where(x => x.Points > 400).ToListAsync();
+                return _mapper.Map<List<MemeModel>, List<ShortMemeViewModel>>(list); ;
             }
             if (type == "Trending")
             {
-                return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 400 && m.Points > 100).Select(m => new ShortMemeViewModel
-                {
-                    ImagePath = m.ImagePath,
-                    MemeId = m.Id,
-                    Points = m.Points,
-                    Title = m.Title,
-                    SComments = _gagDb.Comments.Where(c => c.MemeId == m.Id).Count()
-                }
-                ).ToList();
+                var list = await _gagDb.Memes.AsQueryable().Where(m => m.Points <= 400 && m.Points > 100).ToListAsync();
+                return _mapper.Map<List<MemeModel>, List<ShortMemeViewModel>>(list); ;
             }
             else
             {
-                return _gagDb.Categories.SelectMany(c => c.Memes).Where(m => m.Points <= 100).Select(m => new ShortMemeViewModel
-                {
-                    ImagePath = m.ImagePath,
-                    MemeId = m.Id,
-                    Points = m.Points,
-                    Title = m.Title,
-                    SComments = _gagDb.Comments.Where(c => c.MemeId == m.Id).Count()
-                }
-                ).ToList();
+                var list = await _gagDb.Memes.AsQueryable().Where(m => m.Points <= 100).ToListAsync();
+                return _mapper.Map<List<MemeModel>, List<ShortMemeViewModel>>(list);
             }
         }       
-        public List<ShortMemeViewModel> GetMemeByCategory(string categoryName)
+        public async Task<List<ShortMemeViewModel>> GetMemeByCategory(string categoryName)
         {
-            var memes = _gagDb.Memes.Where(x => x.Category.Name == categoryName);
-            return memes.Select(m => new ShortMemeViewModel
-            {
-                ImagePath = m.ImagePath,
-                MemeId = m.Id,
-                Points = m.Points,
-                Title = m.Title,
-            }).ToList();
+            var list = await _gagDb.Memes.Where(x => x.Category.Name == categoryName).ToListAsync();
+            return _mapper.Map<List<MemeModel>, List<ShortMemeViewModel>>(list);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -13,6 +14,22 @@ namespace NET_student_project.Models
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
         public string ImagePath { get; set; }
+        public string LikedMemesString { get; set; }
+        public List<int> LikedMemes
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(LikedMemesString))
+                {
+                    return new List<int>();
+                }
+                return LikedMemesString.Split(';').Select(int.Parse).ToArray().ToList();
+            }
+            set
+            {
+                LikedMemesString = string.Join(";", value);
+            }
+        }
     }
 
     public class ManageLoginsViewModel

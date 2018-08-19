@@ -12,10 +12,8 @@ namespace NET_student_project.Models
         [Key]
         public int Id { get; set; }
         public string Text { get; set; }
-
         //     public DateTime ReleaseTime { get; set; }
         public int Upvotes { get; set; }
-
         [ForeignKey("Meme")]
         public int MemeId { get; set; }
         public virtual MemeModel Meme { get; set; }
@@ -24,7 +22,5 @@ namespace NET_student_project.Models
         public int UserId { get; set; }
         public virtual UserModel User { get; set; }
         public virtual ICollection<CommentModel> SubComments { get; set; }
-
-
     }
 }

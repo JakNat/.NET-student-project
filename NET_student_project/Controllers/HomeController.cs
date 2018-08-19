@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -26,11 +27,11 @@ namespace NET_student_project.Controllers
             _categoriesRepository = categoriesRepository;
             _memeRepository = memeRepository;
         }
-        public ActionResult Index(string id = "Hot",int page = 0)
+        public async Task<ActionResult> Index(string id = "Hot",int page = 0)
         {
             ViewBag.id = id;
             ViewBag.page = page;
-            var memeList = _memeRepository.GetAllShortMemeByPopularity(id);
+            var memeList = await  _memeRepository.GetShortMemesAsync(id);
             ShortMemesListViewModel list = null;
             if (page * 9 + 9 > memeList.Count)
             {
@@ -45,34 +46,32 @@ namespace NET_student_project.Controllers
                 Memes = memeList.GetRange(page * 9, 9),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             };
-            try
+            if (Request.IsAuthenticated)
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.GetUserName();
                 var user = _gagDb.Users.First(u => u.Name == name);
                 list.SetLikedMemes(user);
             }
-            catch (Exception)
-            {}      
             return View(list);
         }
-        public ActionResult MemesGetByCategory(string id = "Funny")
+        public async Task<ActionResult> MemesGetByCategory(string id = "Funny")
         {
             ViewBag.Title = id;
             var list = new ShortMemesListViewModel
             {
-                Memes = _memeRepository.GetMemeByCategory(id),
+                Memes = await _memeRepository.GetMemeByCategory(id),
                 CategoriesNames = _categoriesRepository.GetAllCategoriesNames()
             };
-            try
+            if (Request.IsAuthenticated)
             {
+                
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.GetUserName();
+                var n = Request.UserHostName;
                 var user = _gagDb.Users.First(u => u.Name == name);
                 list.SetLikedMemes(user);
             }
-            catch (Exception)
-            { }
             return View(list);
         }
     }

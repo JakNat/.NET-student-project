@@ -90,4 +90,9 @@
             }*@
         </dd>
     </dl>
+    <div>
+        @{ foreach(var memeId in Model.LikedMemes){
+                Html.RenderAction("_ShortMeme", "Meme", new { id = memeId});
+            }}
+    </div>
 </div>

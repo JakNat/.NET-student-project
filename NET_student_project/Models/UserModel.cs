@@ -10,12 +10,12 @@ namespace NET_student_project.Models
     {
         [Key]
         public int Id { get; set; }
-   //     [Required]
         public string Name { get; set; }
         public string Password { get; set; }
         public string ImagePath { get; set; }
         // public DateTime Updated { get; set; }
         public virtual ICollection<MemeModel> Memes { get; set; }
+        public virtual ICollection<CommentModel> Comments { get; set; }
         public string LikedMemesString { get; set; }
         public string DisLikedMemesString { get; set; }
         public List<int> LikedMemes
@@ -48,10 +48,6 @@ namespace NET_student_project.Models
                 DisLikedMemesString = string.Join(";", value);
             }
         }
-        public virtual ICollection<CommentModel> Comments { get; set; }
-
-
-
         public bool IsLikingMeme(int id)
         {
             if (LikedMemes.Exists(i => i == id))
